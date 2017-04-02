@@ -43,7 +43,45 @@ namespace MatrizEsparsa
         /// <param name="colunas"></param>
         public ListaLigadaCruzada(int linhas, int colunas)
         {
-            throw new NotImplementedException();
+            if (linhas <= 0 || colunas <= 0)
+                throw new ArgumentOutOfRangeException("Linhas/Colunas não podem ser negativas ou 0");
+
+            n = linhas;
+            m = colunas;
+
+            cabecaPrincipal = new Celula(Convert.ToDouble(null), -1, -1);
+            cabecaPrincipal.Direita = cabecaPrincipal;
+
+            // inicia o percurso para criar as linhas da matriz
+            Celula atual = cabecaPrincipal;
+            for (int i = 0; i < linhas; i++)
+            {
+                Celula cabeca = new Celula(Convert.ToDouble(null), -1, Convert.ToInt32(null));
+                cabeca.Direita = cabeca;
+
+                atual.Abaixo  = cabeca;
+                atual         = atual.Abaixo;
+            }
+            // aponta para a primeira cabeca criando a lista circular
+            atual.Abaixo = cabecaPrincipal;
+            
+            // inicia o outro percurso para criar as colunas da matriz
+            atual = cabecaPrincipal;
+            for (int i = 0; i < colunas; i++)
+            {
+                Celula cabeca = new Celula(Convert.ToDouble(null), Convert.ToInt32(null), -1);
+                cabeca.Abaixo = cabeca;
+
+                // necessita verificar se é a cabecaPrincipal para não perder
+                // a lista circular de linhas
+                if (atual != cabecaPrincipal)
+                    atual.Abaixo = atual;
+
+                atual.Direita = cabeca;
+                atual         = atual.Direita;
+            }
+            // aponta para a primeira cabeca criando a lista circular
+            atual.Direita = cabecaPrincipal;
         }
 
         /// <summary>
@@ -55,7 +93,44 @@ namespace MatrizEsparsa
         /// <remarks>Cria uma célula no lugar que conterá o valor.</remarks>
         public void InserirElemento(double elemento, int linha, int coluna)
         {
-            throw new NotImplementedException();
+            if (linha <= 0 || linha > this.Linhas ||
+                coluna <= 0 || coluna > this.Colunas)
+                throw new ArgumentOutOfRangeException("Linha/Coluna fora do intervalo da matriz para inserir");
+
+            // percorre as colunas cabeças para achar cabecaColuna
+            Celula cabecaColuna = cabecaPrincipal;
+            for (int j = 0; j < coluna; j++)
+                cabecaColuna = cabecaColuna.Direita;
+
+            // percorre as linhas cabeças para achar a cabecaLinha
+            Celula cabecaLinha = cabecaPrincipal;
+            for (int i = 0; i < linha; i++)
+                cabecaLinha = cabecaLinha.Abaixo;
+            
+            Celula anterior = cabecaLinha;
+            Celula atual    = cabecaLinha.Direita;
+
+            if (atual!=anterior)
+                while (atual.Coluna < coluna) 
+                {
+                    anterior = atual;
+                    atual = atual.Direita;
+                }
+
+            Celula insercao = new Celula(elemento, linha, coluna);
+
+            anterior.Direita = insercao;
+            insercao.Direita = atual;
+            insercao.Abaixo = cabecaColuna;
+
+
+            // percorre a lista circular da coluna para que o último dessa lista
+            // comece a apontar para a nova célula inserida
+            Celula percursoColuna = cabecaColuna.Abaixo;
+            while (percursoColuna.Abaixo != cabecaColuna)
+                percursoColuna = percursoColuna.Abaixo;
+
+            percursoColuna.Abaixo = insercao;
         }
 
         /// <summary>
@@ -84,7 +159,37 @@ namespace MatrizEsparsa
         /// <returns>Valor double contido na célula.</returns>
         public double ValorDe(int linha, int coluna)
         {
-            throw new NotImplementedException();
+            if (linha <= 0 || coluna <= 0 ||
+                linha > Linhas || coluna > Colunas)
+                throw new ArgumentOutOfRangeException("Linha e coluna estão foras do intervalo.");
+
+            Celula celula = cabecaPrincipal;
+
+            // percorre as linhas
+            for (int i = 0; i < linha; i++)
+                celula = celula.Abaixo;
+
+            // percorre as colunas
+            for (int j = 0; j < coluna; j++)
+            {
+                // se a cabeca aponta para ela mesma não há células guardadas nesta linha
+                if (celula.Direita == celula)
+                    return ValorPadrao;
+
+                // se a coluna desejada for encontrada retornará o valor
+                if (celula.Coluna == coluna)
+                    return celula.Valor;
+
+                // se a célula da matriz estiver numa coluna maior que a coluna da célula buscada
+                // a célula não está sendo guardada, portanto retorna o valor padrão.
+                if (celula.Coluna > coluna)
+                    return ValorPadrao;
+
+                // se a coluna da célula for menor que a coluna da célula procurada avança-se até ser igual, maior ou menor
+                if (celula.Coluna < coluna)
+                    celula = celula.Direita;
+            }
+            return ValorPadrao;
         }
 
         /// <summary>
@@ -142,6 +247,27 @@ namespace MatrizEsparsa
         public ListaLigadaCruzada MultiplicarMatrizes(ListaLigadaCruzada outraMatriz)
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            String ret = "{ ";
+
+            Celula cabecaLinha = cabecaPrincipal.Abaixo;
+
+            while (cabecaLinha != cabecaPrincipal)
+            {
+                Celula percLinha = cabecaLinha.Direita;
+                while (percLinha != cabecaLinha)
+                {
+                    ret += "(" + percLinha.Linha + "," + percLinha.Coluna +  "," + percLinha.Valor + ")" + (percLinha.Direita!=cabecaLinha? " , " : " ");
+
+                    percLinha = percLinha.Direita;
+                }
+
+                cabecaLinha = cabecaLinha.Abaixo;
+            }
+            return ret + "}";
         }
 
     }

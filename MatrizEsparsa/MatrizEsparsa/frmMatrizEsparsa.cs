@@ -19,9 +19,9 @@ namespace MatrizEsparsa
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnCriarMatriz_Click(object sender, EventArgs e)
         {
-            matrizEsparsa = new ListaLigadaCruzada(3, 3);
+            matrizEsparsa = new ListaLigadaCruzada(3,3);
         }
 
         private void sobreToolStripMenuItem1_Click(object sender, EventArgs e)
