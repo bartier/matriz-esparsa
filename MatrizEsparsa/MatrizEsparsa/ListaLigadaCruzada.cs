@@ -173,6 +173,10 @@ namespace MatrizEsparsa
             while (percCol.Coluna<coluna && percCol.Direita!=cabecaLinha)
                 percCol = percCol.Direita;
 
+
+            if (percCol.Coluna > coluna)
+                return ValorPadrao;
+
             return percCol.Valor;
         }
 

@@ -35,8 +35,6 @@
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobreToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.dgMatrizEsparsa = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgMatrizEsparsa)).BeginInit();
             this.SuspendLayout();
@@ -45,7 +43,7 @@
             // 
             this.btnCriarMatriz.Location = new System.Drawing.Point(12, 36);
             this.btnCriarMatriz.Name = "btnCriarMatriz";
-            this.btnCriarMatriz.Size = new System.Drawing.Size(80, 23);
+            this.btnCriarMatriz.Size = new System.Drawing.Size(89, 23);
             this.btnCriarMatriz.TabIndex = 0;
             this.btnCriarMatriz.Text = "Criar matriz";
             this.btnCriarMatriz.UseVisualStyleBackColor = true;
@@ -106,33 +104,11 @@
             this.dgMatrizEsparsa.Size = new System.Drawing.Size(399, 235);
             this.dgMatrizEsparsa.TabIndex = 2;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(98, 36);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "toString";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(179, 36);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "valorde";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // frmMatrizEsparsa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(423, 312);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.dgMatrizEsparsa);
             this.Controls.Add(this.btnCriarMatriz);
             this.Controls.Add(this.menuStrip1);
@@ -158,8 +134,6 @@
         private System.Windows.Forms.ToolStripMenuItem sobreToolStripMenuItem1;
         private System.Windows.Forms.DataGridView dgMatrizEsparsa;
         private System.Windows.Forms.ToolStripMenuItem criarMatrizToolStripMenuItem;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
     }
 }
 
