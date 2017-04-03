@@ -110,8 +110,7 @@ namespace MatrizEsparsa
             Celula anterior = cabecaLinha;
             Celula atual    = cabecaLinha.Direita;
 
-            if (atual!=anterior)
-                while (atual.Coluna < coluna) 
+                while (atual.Coluna < coluna && atual.Direita!=cabecaLinha) 
                 {
                     anterior = atual;
                     atual = atual.Direita;
@@ -163,33 +162,18 @@ namespace MatrizEsparsa
                 linha > Linhas || coluna > Colunas)
                 throw new ArgumentOutOfRangeException("Linha e coluna estão foras do intervalo.");
 
-            Celula celula = cabecaPrincipal;
+            Celula cabecaLinha = cabecaPrincipal;
 
             // percorre as linhas
             for (int i = 0; i < linha; i++)
-                celula = celula.Abaixo;
+                cabecaLinha = cabecaLinha.Abaixo;
 
             // percorre as colunas
-            for (int j = 0; j < coluna; j++)
-            {
-                // se a cabeca aponta para ela mesma não há células guardadas nesta linha
-                if (celula.Direita == celula)
-                    return ValorPadrao;
+            Celula percCol = cabecaLinha.Direita;
+            while (percCol.Coluna<coluna && percCol.Direita!=cabecaLinha)
+                percCol = percCol.Direita;
 
-                // se a coluna desejada for encontrada retornará o valor
-                if (celula.Coluna == coluna)
-                    return celula.Valor;
-
-                // se a célula da matriz estiver numa coluna maior que a coluna da célula buscada
-                // a célula não está sendo guardada, portanto retorna o valor padrão.
-                if (celula.Coluna > coluna)
-                    return ValorPadrao;
-
-                // se a coluna da célula for menor que a coluna da célula procurada avança-se até ser igual, maior ou menor
-                if (celula.Coluna < coluna)
-                    celula = celula.Direita;
-            }
-            return ValorPadrao;
+            return percCol.Valor;
         }
 
         /// <summary>
@@ -251,7 +235,7 @@ namespace MatrizEsparsa
 
         public override string ToString()
         {
-            String ret = "{ ";
+            String ret = "";
 
             Celula cabecaLinha = cabecaPrincipal.Abaixo;
 
@@ -260,14 +244,14 @@ namespace MatrizEsparsa
                 Celula percLinha = cabecaLinha.Direita;
                 while (percLinha != cabecaLinha)
                 {
-                    ret += "(" + percLinha.Linha + "," + percLinha.Coluna +  "," + percLinha.Valor + ")" + (percLinha.Direita!=cabecaLinha? " , " : " ");
+                    ret += percLinha.ToString() + (percLinha.Direita!=cabecaLinha? ", " : " ");
 
                     percLinha = percLinha.Direita;
                 }
 
                 cabecaLinha = cabecaLinha.Abaixo;
             }
-            return ret + "}";
+            return ret;
         }
 
     }

@@ -83,5 +83,14 @@ namespace MatrizEsparsa
                 abaixo = value;
             }
         }
+
+        public override string ToString()
+        {
+            String ret = "(";
+
+            ret += this.Valor + ";" + this.Linha + ";" + this.Coluna;
+
+            return ret + ")";
+        }
     }
 }
