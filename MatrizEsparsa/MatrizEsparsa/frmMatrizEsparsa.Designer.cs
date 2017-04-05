@@ -28,67 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnCriarMatriz = new System.Windows.Forms.Button();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.opçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.criarMatrizToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sobreToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.dgMatrizEsparsa = new System.Windows.Forms.DataGridView();
-            this.menuStrip1.SuspendLayout();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnCriarMatrizEsparsa = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.numLinhas = new System.Windows.Forms.NumericUpDown();
+            this.numColunas = new System.Windows.Forms.NumericUpDown();
+            this.panelGerarMatriz = new System.Windows.Forms.Panel();
+            this.panelInserirElemento = new System.Windows.Forms.Panel();
+            this.numColunaInsercao = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.numLinhaInsercao = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtElementoInsercao = new System.Windows.Forms.TextBox();
+            this.btnInserirElemento = new System.Windows.Forms.Button();
+            this.panelOpcoes = new System.Windows.Forms.Panel();
+            this.btbDesalocarMatriz = new System.Windows.Forms.Button();
+            this.btnSobre = new System.Windows.Forms.Button();
+            this.btnLerArquivo = new System.Windows.Forms.Button();
+            this.btnCelulasGuardadas = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.btnPesquisar = new System.Windows.Forms.Button();
+            this.numColunaPesquisa = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.numLinhaPesquisa = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgMatrizEsparsa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLinhas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numColunas)).BeginInit();
+            this.panelGerarMatriz.SuspendLayout();
+            this.panelInserirElemento.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numColunaInsercao)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLinhaInsercao)).BeginInit();
+            this.panelOpcoes.SuspendLayout();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numColunaPesquisa)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLinhaPesquisa)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnCriarMatriz
-            // 
-            this.btnCriarMatriz.Location = new System.Drawing.Point(12, 36);
-            this.btnCriarMatriz.Name = "btnCriarMatriz";
-            this.btnCriarMatriz.Size = new System.Drawing.Size(89, 23);
-            this.btnCriarMatriz.TabIndex = 0;
-            this.btnCriarMatriz.Text = "Criar matriz";
-            this.btnCriarMatriz.UseVisualStyleBackColor = true;
-            this.btnCriarMatriz.Click += new System.EventHandler(this.btnCriarMatriz_Click);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.opçõesToolStripMenuItem,
-            this.sobreToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(423, 24);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // opçõesToolStripMenuItem
-            // 
-            this.opçõesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.criarMatrizToolStripMenuItem});
-            this.opçõesToolStripMenuItem.Name = "opçõesToolStripMenuItem";
-            this.opçõesToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.opçõesToolStripMenuItem.Text = "Opções";
-            // 
-            // criarMatrizToolStripMenuItem
-            // 
-            this.criarMatrizToolStripMenuItem.Name = "criarMatrizToolStripMenuItem";
-            this.criarMatrizToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.criarMatrizToolStripMenuItem.Text = "Criar matriz";
-            this.criarMatrizToolStripMenuItem.Click += new System.EventHandler(this.btnCriarMatriz_Click);
-            // 
-            // sobreToolStripMenuItem
-            // 
-            this.sobreToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sobreToolStripMenuItem1});
-            this.sobreToolStripMenuItem.Name = "sobreToolStripMenuItem";
-            this.sobreToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
-            this.sobreToolStripMenuItem.Text = "Ajuda";
-            // 
-            // sobreToolStripMenuItem1
-            // 
-            this.sobreToolStripMenuItem1.Name = "sobreToolStripMenuItem1";
-            this.sobreToolStripMenuItem1.Size = new System.Drawing.Size(104, 22);
-            this.sobreToolStripMenuItem1.Text = "Sobre";
-            this.sobreToolStripMenuItem1.Click += new System.EventHandler(this.sobreToolStripMenuItem1_Click);
             // 
             // dgMatrizEsparsa
             // 
@@ -98,42 +77,375 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgMatrizEsparsa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgMatrizEsparsa.Location = new System.Drawing.Point(12, 65);
+            this.dgMatrizEsparsa.Location = new System.Drawing.Point(12, 103);
             this.dgMatrizEsparsa.Name = "dgMatrizEsparsa";
             this.dgMatrizEsparsa.ReadOnly = true;
-            this.dgMatrizEsparsa.Size = new System.Drawing.Size(399, 235);
+            this.dgMatrizEsparsa.Size = new System.Drawing.Size(991, 260);
             this.dgMatrizEsparsa.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(190, 16);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Matriz Esparsa - Coordenadas";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(3, 6);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 20);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Linhas:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(3, 37);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 20);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Colunas:";
+            // 
+            // btnCriarMatrizEsparsa
+            // 
+            this.btnCriarMatrizEsparsa.Location = new System.Drawing.Point(162, 3);
+            this.btnCriarMatrizEsparsa.Name = "btnCriarMatrizEsparsa";
+            this.btnCriarMatrizEsparsa.Size = new System.Drawing.Size(95, 63);
+            this.btnCriarMatrizEsparsa.TabIndex = 8;
+            this.btnCriarMatrizEsparsa.Text = "Gerar Matriz Esparsa";
+            this.btnCriarMatrizEsparsa.UseVisualStyleBackColor = true;
+            this.btnCriarMatrizEsparsa.Click += new System.EventHandler(this.btnCriarMatrizEsparsa_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.DefaultExt = "*.txt";
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = "Txt files|*txt";
+            // 
+            // numLinhas
+            // 
+            this.numLinhas.Location = new System.Drawing.Point(80, 6);
+            this.numLinhas.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numLinhas.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numLinhas.Name = "numLinhas";
+            this.numLinhas.Size = new System.Drawing.Size(65, 20);
+            this.numLinhas.TabIndex = 11;
+            this.numLinhas.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numColunas
+            // 
+            this.numColunas.Location = new System.Drawing.Point(80, 37);
+            this.numColunas.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numColunas.Name = "numColunas";
+            this.numColunas.Size = new System.Drawing.Size(65, 20);
+            this.numColunas.TabIndex = 12;
+            this.numColunas.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // panelGerarMatriz
+            // 
+            this.panelGerarMatriz.Controls.Add(this.btnCriarMatrizEsparsa);
+            this.panelGerarMatriz.Controls.Add(this.label2);
+            this.panelGerarMatriz.Controls.Add(this.label3);
+            this.panelGerarMatriz.Controls.Add(this.numLinhas);
+            this.panelGerarMatriz.Controls.Add(this.numColunas);
+            this.panelGerarMatriz.Location = new System.Drawing.Point(15, 28);
+            this.panelGerarMatriz.Name = "panelGerarMatriz";
+            this.panelGerarMatriz.Size = new System.Drawing.Size(260, 69);
+            this.panelGerarMatriz.TabIndex = 21;
+            // 
+            // panelInserirElemento
+            // 
+            this.panelInserirElemento.Controls.Add(this.numColunaInsercao);
+            this.panelInserirElemento.Controls.Add(this.label6);
+            this.panelInserirElemento.Controls.Add(this.numLinhaInsercao);
+            this.panelInserirElemento.Controls.Add(this.label5);
+            this.panelInserirElemento.Controls.Add(this.label4);
+            this.panelInserirElemento.Controls.Add(this.txtElementoInsercao);
+            this.panelInserirElemento.Controls.Add(this.btnInserirElemento);
+            this.panelInserirElemento.Location = new System.Drawing.Point(281, 12);
+            this.panelInserirElemento.Name = "panelInserirElemento";
+            this.panelInserirElemento.Size = new System.Drawing.Size(263, 85);
+            this.panelInserirElemento.TabIndex = 22;
+            // 
+            // numColunaInsercao
+            // 
+            this.numColunaInsercao.Location = new System.Drawing.Point(150, 34);
+            this.numColunaInsercao.Maximum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numColunaInsercao.Name = "numColunaInsercao";
+            this.numColunaInsercao.Size = new System.Drawing.Size(33, 20);
+            this.numColunaInsercao.TabIndex = 27;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(91, 34);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(53, 16);
+            this.label6.TabIndex = 26;
+            this.label6.Text = "Coluna:";
+            // 
+            // numLinhaInsercao
+            // 
+            this.numLinhaInsercao.Location = new System.Drawing.Point(52, 34);
+            this.numLinhaInsercao.Maximum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numLinhaInsercao.Name = "numLinhaInsercao";
+            this.numLinhaInsercao.Size = new System.Drawing.Size(33, 20);
+            this.numLinhaInsercao.TabIndex = 25;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(3, 34);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 16);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Linha:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(3, 6);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(59, 16);
+            this.label4.TabIndex = 23;
+            this.label4.Text = "Número:";
+            // 
+            // txtElementoInsercao
+            // 
+            this.txtElementoInsercao.Location = new System.Drawing.Point(63, 5);
+            this.txtElementoInsercao.Name = "txtElementoInsercao";
+            this.txtElementoInsercao.Size = new System.Drawing.Size(197, 20);
+            this.txtElementoInsercao.TabIndex = 22;
+            // 
+            // btnInserirElemento
+            // 
+            this.btnInserirElemento.Location = new System.Drawing.Point(3, 61);
+            this.btnInserirElemento.Name = "btnInserirElemento";
+            this.btnInserirElemento.Size = new System.Drawing.Size(257, 21);
+            this.btnInserirElemento.TabIndex = 21;
+            this.btnInserirElemento.Text = "Inserir elemento";
+            this.btnInserirElemento.UseVisualStyleBackColor = true;
+            this.btnInserirElemento.Click += new System.EventHandler(this.btnInserirElemento_Click);
+            // 
+            // panelOpcoes
+            // 
+            this.panelOpcoes.Controls.Add(this.btbDesalocarMatriz);
+            this.panelOpcoes.Controls.Add(this.btnSobre);
+            this.panelOpcoes.Controls.Add(this.btnLerArquivo);
+            this.panelOpcoes.Controls.Add(this.btnCelulasGuardadas);
+            this.panelOpcoes.Location = new System.Drawing.Point(550, 12);
+            this.panelOpcoes.Name = "panelOpcoes";
+            this.panelOpcoes.Size = new System.Drawing.Size(231, 85);
+            this.panelOpcoes.TabIndex = 23;
+            // 
+            // btbDesalocarMatriz
+            // 
+            this.btbDesalocarMatriz.Location = new System.Drawing.Point(115, 43);
+            this.btbDesalocarMatriz.Name = "btbDesalocarMatriz";
+            this.btbDesalocarMatriz.Size = new System.Drawing.Size(110, 33);
+            this.btbDesalocarMatriz.TabIndex = 20;
+            this.btbDesalocarMatriz.Text = "Desalocar matriz";
+            this.btbDesalocarMatriz.UseVisualStyleBackColor = true;
+            this.btbDesalocarMatriz.Click += new System.EventHandler(this.btnDesalocarMatriz_Click);
+            // 
+            // btnSobre
+            // 
+            this.btnSobre.Location = new System.Drawing.Point(115, 5);
+            this.btnSobre.Name = "btnSobre";
+            this.btnSobre.Size = new System.Drawing.Size(110, 34);
+            this.btnSobre.TabIndex = 19;
+            this.btnSobre.Text = "Autores";
+            this.btnSobre.UseVisualStyleBackColor = true;
+            this.btnSobre.Click += new System.EventHandler(this.btnSobre_Click);
+            // 
+            // btnLerArquivo
+            // 
+            this.btnLerArquivo.Location = new System.Drawing.Point(3, 5);
+            this.btnLerArquivo.Name = "btnLerArquivo";
+            this.btnLerArquivo.Size = new System.Drawing.Size(106, 34);
+            this.btnLerArquivo.TabIndex = 18;
+            this.btnLerArquivo.Text = "Ler de Arquivo";
+            this.btnLerArquivo.UseVisualStyleBackColor = true;
+            this.btnLerArquivo.Click += new System.EventHandler(this.btnLerArquivo_Click);
+            // 
+            // btnCelulasGuardadas
+            // 
+            this.btnCelulasGuardadas.Location = new System.Drawing.Point(3, 43);
+            this.btnCelulasGuardadas.Name = "btnCelulasGuardadas";
+            this.btnCelulasGuardadas.Size = new System.Drawing.Size(106, 33);
+            this.btnCelulasGuardadas.TabIndex = 17;
+            this.btnCelulasGuardadas.Text = "Células guardadas";
+            this.btnCelulasGuardadas.UseVisualStyleBackColor = true;
+            this.btnCelulasGuardadas.Click += new System.EventHandler(this.btnCelulasGuardadas_Click);
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.numColunaPesquisa);
+            this.panel4.Controls.Add(this.btnPesquisar);
+            this.panel4.Controls.Add(this.label7);
+            this.panel4.Controls.Add(this.label8);
+            this.panel4.Controls.Add(this.numLinhaPesquisa);
+            this.panel4.Location = new System.Drawing.Point(787, 12);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(209, 85);
+            this.panel4.TabIndex = 24;
+            // 
+            // btnPesquisar
+            // 
+            this.btnPesquisar.Location = new System.Drawing.Point(3, 34);
+            this.btnPesquisar.Name = "btnPesquisar";
+            this.btnPesquisar.Size = new System.Drawing.Size(203, 48);
+            this.btnPesquisar.TabIndex = 0;
+            this.btnPesquisar.Text = "Pesquisar";
+            this.btnPesquisar.UseVisualStyleBackColor = true;
+            this.btnPesquisar.Click += new System.EventHandler(this.btnPesquisar_Click);
+            // 
+            // numColunaPesquisa
+            // 
+            this.numColunaPesquisa.Location = new System.Drawing.Point(151, 6);
+            this.numColunaPesquisa.Maximum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numColunaPesquisa.Name = "numColunaPesquisa";
+            this.numColunaPesquisa.Size = new System.Drawing.Size(33, 20);
+            this.numColunaPesquisa.TabIndex = 31;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(92, 6);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(53, 16);
+            this.label7.TabIndex = 30;
+            this.label7.Text = "Coluna:";
+            // 
+            // numLinhaPesquisa
+            // 
+            this.numLinhaPesquisa.Location = new System.Drawing.Point(53, 6);
+            this.numLinhaPesquisa.Maximum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numLinhaPesquisa.Name = "numLinhaPesquisa";
+            this.numLinhaPesquisa.Size = new System.Drawing.Size(33, 20);
+            this.numLinhaPesquisa.TabIndex = 29;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(4, 6);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(43, 16);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "Linha:";
             // 
             // frmMatrizEsparsa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(423, 312);
+            this.ClientSize = new System.Drawing.Size(1015, 375);
+            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.panelOpcoes);
+            this.Controls.Add(this.panelInserirElemento);
+            this.Controls.Add(this.panelGerarMatriz);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.dgMatrizEsparsa);
-            this.Controls.Add(this.btnCriarMatriz);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmMatrizEsparsa";
             this.ShowIcon = false;
             this.Text = "Matriz Esparsa";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.Load += new System.EventHandler(this.frmMatrizEsparsa_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgMatrizEsparsa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLinhas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numColunas)).EndInit();
+            this.panelGerarMatriz.ResumeLayout(false);
+            this.panelGerarMatriz.PerformLayout();
+            this.panelInserirElemento.ResumeLayout(false);
+            this.panelInserirElemento.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numColunaInsercao)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLinhaInsercao)).EndInit();
+            this.panelOpcoes.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numColunaPesquisa)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLinhaPesquisa)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnCriarMatriz;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem opçõesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sobreToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sobreToolStripMenuItem1;
         private System.Windows.Forms.DataGridView dgMatrizEsparsa;
-        private System.Windows.Forms.ToolStripMenuItem criarMatrizToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnCriarMatrizEsparsa;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.NumericUpDown numLinhas;
+        private System.Windows.Forms.NumericUpDown numColunas;
+        private System.Windows.Forms.Panel panelGerarMatriz;
+        private System.Windows.Forms.Panel panelInserirElemento;
+        private System.Windows.Forms.NumericUpDown numColunaInsercao;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown numLinhaInsercao;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtElementoInsercao;
+        private System.Windows.Forms.Button btnInserirElemento;
+        private System.Windows.Forms.Panel panelOpcoes;
+        private System.Windows.Forms.Button btnSobre;
+        private System.Windows.Forms.Button btnLerArquivo;
+        private System.Windows.Forms.Button btnCelulasGuardadas;
+        private System.Windows.Forms.Button btbDesalocarMatriz;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.NumericUpDown numColunaPesquisa;
+        private System.Windows.Forms.Button btnPesquisar;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown numLinhaPesquisa;
     }
 }
 
