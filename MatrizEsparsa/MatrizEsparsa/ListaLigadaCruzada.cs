@@ -20,7 +20,7 @@ namespace MatrizEsparsa
         public static int ValorPadrao = 0;
 
         /// <summary>
-        /// Retorna o número de linhas que a matriz esparsa contém. Começando a contagem a partir do 0.
+        /// Retorna o número de linhas que a matriz esparsa contém.
         /// </summary>
         public int Linhas
         {
@@ -28,7 +28,7 @@ namespace MatrizEsparsa
         }
 
         /// <summary>
-        /// Retorna o número de colunas que a matriz esparsa contém. Começando a contagem a partir do 0.
+        /// Retorna o número de colunas que a matriz esparsa contém.
         /// </summary>
         public int Colunas
         {
@@ -36,8 +36,16 @@ namespace MatrizEsparsa
         }
 
         /// <summary>
+        /// Retorna verdadeiro se cabecaPrincipal == null (indica que não há estrutuda da matriz esparsa).
+        /// </summary>
+        public bool EstaDesalocada
+        {
+            get { return this.cabecaPrincipal == null; }
+        }
+
+        /// <summary>
         /// Construtor da matriz esparsa. Recebe a quantidade de linhas e colunas que
-        /// a matriz deverá conter.
+        /// a matriz deverá conter. Cria a estrutura da matriz esparsa (nós-cabeça).
         /// </summary>
         /// <param name="linhas"></param>
         /// <param name="colunas"></param>
@@ -56,7 +64,7 @@ namespace MatrizEsparsa
             Celula atual = cabecaPrincipal;
             for (int i = 0; i < linhas; i++)
             {
-                Celula cabeca = new Celula(Convert.ToDouble(null), i, -1);
+                Celula cabeca  = new Celula(Convert.ToDouble(null), i, -1);
                 cabeca.Direita = cabeca;
 
                 atual.Abaixo  = cabeca;
@@ -64,7 +72,7 @@ namespace MatrizEsparsa
             }
             // aponta para a primeira cabeca criando a lista circular
             atual.Abaixo = cabecaPrincipal;
-            
+
             // inicia o outro percurso para criar as colunas da matriz
             atual = cabecaPrincipal;
             for (int i = 0; i < colunas; i++)
@@ -93,9 +101,13 @@ namespace MatrizEsparsa
         /// <remarks>Cria uma célula no lugar que conterá o valor.</remarks>
         public void InserirElemento(double elemento, int linha, int coluna)
         {
-            if (linha < 0 || linha >= this.Linhas ||
+            if (linha  < 0 || linha  >= this.Linhas ||
                 coluna < 0 || coluna >= this.Colunas)
                 throw new ArgumentOutOfRangeException("Linha/Coluna fora do intervalo da matriz para inserir");
+
+            // não será guardado elementos com o ValorPadrao
+            if (elemento == ValorPadrao)
+                return;
 
             // percorre as colunas cabeças para achar cabecaColuna
             Celula cabecaColuna = cabecaPrincipal;
@@ -106,11 +118,11 @@ namespace MatrizEsparsa
             Celula cabecaLinha = cabecaPrincipal;
             for (int i = 0; i <= linha; i++)
                 cabecaLinha = cabecaLinha.Abaixo;
-            
+
             Celula anterior = cabecaLinha;
             Celula atual    = cabecaLinha.Direita;
 
-            while (atual.Coluna < coluna && atual.Coluna!=-1)
+            while (atual.Coluna < coluna && atual.Coluna != -1)
             {
                 anterior = atual;
                 atual = atual.Direita;
@@ -120,7 +132,7 @@ namespace MatrizEsparsa
 
             anterior.Direita = insercao;
             insercao.Direita = atual;
-            insercao.Abaixo = cabecaColuna;
+            insercao.Abaixo  = cabecaColuna;
 
 
             // percorre a lista circular da coluna para que o último dessa lista
@@ -136,18 +148,37 @@ namespace MatrizEsparsa
         /// Lê um arquivo .txt com os dados de uma matriz esparsa.
         /// </summary>
         /// <param name="arquivo"></param>
-        public void LerArquivo(string arquivo)
+        public ListaLigadaCruzada LerArquivo(string arquivo)
         {
-            throw new NotImplementedException();
+            StreamReader sr = new StreamReader(arquivo);
 
-            //StreamReader sr = new StreamReader(arquivo);
+            string linhaArq = sr.ReadLine();
 
-            //string linha;
-            //while ((linha = sr.ReadLine()) != null)
-            //{
+            while (linhaArq.Contains("//")) // usado para pular comentários no arquivo
+                linhaArq = sr.ReadLine();
 
-            //}
-            //sr.Close();
+            string[] cabecalho = linhaArq.Split(' '); // cabecalho possui as informacoes da coordenada da matriz
+
+            // instancia a matrizEsparsa com as coordenadas no início do arquivo
+            ListaLigadaCruzada matrizEsparsa = new ListaLigadaCruzada(Convert.ToInt32(cabecalho[0]), Convert.ToInt32(cabecalho[1]));
+
+            // adiciona as células que estão no arquivo
+            while ((linhaArq = sr.ReadLine()) != null)
+            {
+                if (linhaArq.Contains("//")) // pular comentários
+                    continue;
+
+                string[] celula = linhaArq.Split(' ');
+
+                double elemento = Convert.ToDouble(celula[0]);
+                int linha = Convert.ToInt32(celula[1]);
+                int coluna = Convert.ToInt32(celula[2]);
+
+                matrizEsparsa.InserirElemento(elemento, linha, coluna);
+            }
+            sr.Close();
+
+            return matrizEsparsa;
         }
 
         /// <summary>
@@ -170,11 +201,11 @@ namespace MatrizEsparsa
 
             // percorre as colunas
             Celula percCol = cabecaLinha.Direita;
-            while (percCol.Coluna<coluna && percCol.Direita!=cabecaLinha)
+            while (percCol.Coluna < coluna && percCol.Direita != cabecaLinha)
                 percCol = percCol.Direita;
 
 
-            if (percCol.Coluna > coluna)
+            if (percCol.Coluna < coluna)
                 return ValorPadrao;
 
             return percCol.Valor;
@@ -206,7 +237,24 @@ namespace MatrizEsparsa
         /// <param name="gridView"></param>
         public void ExibirDataGridView(DataGridView gridView)
         {
-            throw new NotImplementedException();
+            gridView.Columns.Clear();
+            gridView.Rows.Clear();
+
+            // cria o cabecalho das colunas da matriz
+            for (int i = 0; i < this.Colunas; i++)
+                gridView.Columns.Add(i.ToString(), i.ToString());
+
+
+            string[] linha = new string[this.Colunas];
+            // percorre os valores das linhas e insere no gridView
+            for (int j = 0; j < this.Linhas; j++)
+            {
+                for (int k = 0; k < this.Colunas; k++)
+                {
+                    linha[k] = this.ValorDe(j, k).ToString();
+                }
+                gridView.Rows.Add(linha);
+            }
         }
 
         /// <summary>
@@ -214,7 +262,11 @@ namespace MatrizEsparsa
         /// </summary>
         public void ApagarMatriz()
         {
-            throw new NotImplementedException();
+            cabecaPrincipal = null;
+
+            // matriz não existe mais, não há mais linhas
+            n = 0;
+            m = 0;
         }
 
         /// <summary>
@@ -237,6 +289,10 @@ namespace MatrizEsparsa
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Representa a matriz esparsa com as células que são diferentes de ValorPadrao.
+        /// </summary>
+        /// <returns>String com o valor e as coordenadas das células diferente de ValorPadrao.</returns>
         public override string ToString()
         {
             String ret = "{ ";
