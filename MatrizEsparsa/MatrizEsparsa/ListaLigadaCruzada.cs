@@ -128,20 +128,31 @@ namespace MatrizEsparsa
                 atual = atual.Direita;
             }
 
-            Celula insercao = new Celula(elemento, linha, coluna);
+            if (ValorDe(linha, coluna) == 0)
+            {
 
-            anterior.Direita = insercao;
-            insercao.Direita = atual;
-            insercao.Abaixo  = cabecaColuna;
+                Celula insercao = new Celula(elemento, linha, coluna);
+
+                anterior.Direita = insercao;
+                insercao.Direita = atual;
 
 
-            // percorre a lista circular da coluna para que o último dessa lista
-            // comece a apontar para a nova célula inserida
-            Celula percursoColuna = cabecaColuna.Abaixo;
-            while (percursoColuna.Abaixo != cabecaColuna)
-                percursoColuna = percursoColuna.Abaixo;
+                // percorre a lista circular da coluna para que o último dessa lista
+                // comece a apontar para a nova célula inserida
+                Celula anteriorColuna = cabecaColuna;
+                Celula percursoColuna = cabecaColuna.Abaixo;
 
-            percursoColuna.Abaixo = insercao;
+                while (percursoColuna.Abaixo != cabecaColuna && percursoColuna.Linha < linha)
+                {
+                    anteriorColuna = percursoColuna;
+                    percursoColuna = percursoColuna.Abaixo;
+                }
+
+                insercao.Abaixo = percursoColuna;
+                anteriorColuna.Abaixo = insercao;
+            }
+            else
+                atual.Valor = elemento;
         }
 
         /// <summary>
@@ -205,7 +216,7 @@ namespace MatrizEsparsa
                 percCol = percCol.Direita;
 
 
-            if (percCol.Coluna < coluna)
+            if (percCol.Coluna > coluna)
                 return ValorPadrao;
 
             return percCol.Valor;
@@ -245,7 +256,11 @@ namespace MatrizEsparsa
                 gridView.Columns.Add(i.ToString(), i.ToString());
 
 
+
             string[] linha = new string[this.Colunas];
+
+            //gridView.RowHeadersWidth = 50;
+
             // percorre os valores das linhas e insere no gridView
             for (int j = 0; j < this.Linhas; j++)
             {
@@ -254,7 +269,10 @@ namespace MatrizEsparsa
                     linha[k] = this.ValorDe(j, k).ToString();
                 }
                 gridView.Rows.Add(linha);
+                gridView.Rows[j].HeaderCell.Value = j.ToString();
             }
+            gridView.AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders);
+            gridView.AutoResizeColumns();
         }
 
         /// <summary>
