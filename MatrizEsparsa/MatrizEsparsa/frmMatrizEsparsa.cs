@@ -51,8 +51,8 @@ namespace MatrizEsparsa
                 matrizEsparsa = new ListaLigadaCruzada(Convert.ToInt32(numLinhas.Text), Convert.ToInt32(numColunas.Text));
                 matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
 
-                numLinhaPesquisa.Maximum  = numLinhaInsercao.Maximum  = matrizEsparsa.Linhas -1;
-                numColunaPesquisa.Maximum = numColunaInsercao.Maximum = matrizEsparsa.Colunas -1;
+                numLinhaRemocao.Maximum  = numLinhaPesquisa.Maximum  = numLinhaInsercao.Maximum  = matrizEsparsa.Linhas -1;
+                numColunaRemocao.Maximum = numColunaPesquisa.Maximum = numColunaInsercao.Maximum = matrizEsparsa.Colunas -1;
                 
 
                 matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
@@ -96,8 +96,16 @@ namespace MatrizEsparsa
 
         private void btnDesalocarMatriz_Click(object sender, EventArgs e)
         {
-            matrizEsparsa.ApagarMatriz();
-            matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
+            if (!matrizEsparsa.EstaDesalocada)
+            {
+                matrizEsparsa.ApagarMatriz();
+                matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
+            }
+            else
+                MessageBox.Show("A matriz já está desalocada." +
+                                " É necessário gerar uma nova matriz esparsa.", "Atenção!",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+
         }
 
         private void btnPesquisar_Click(object sender, EventArgs e)
@@ -108,9 +116,35 @@ namespace MatrizEsparsa
                                                                      Convert.ToInt32(numColunaPesquisa.Value)));
             }
             else
-                MessageBox.Show("Não é pesquisar com os valores dados." +
+                MessageBox.Show("Não é possível pesquisar com os valores dados." +
                 " Verifique se está no intervalo da matriz esparsa ou se há matriz para pesquisar.", "Atenção!",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnRemoverCelula_Click(object sender, EventArgs e)
+        {
+            if (!matrizEsparsa.EstaDesalocada && numColunaRemocao.Value >=0 && numLinhaRemocao.Value >=0)
+            {
+                if (!matrizEsparsa.RemoverEm(Convert.ToInt32(numLinhaRemocao.Value), Convert.ToInt32(numColunaInsercao.Value)))
+                {
+                    MessageBox.Show("Não há célula nessa coordenada para remover.");
+                }
+                else
+                    MessageBox.Show("Removido com sucesso.");
+
+                matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
+            }
+            else
+                MessageBox.Show("Não é possível remover com os valores dados." +
+                " Verifique se está no intervalo da matriz esparsa ou se há matriz para remover uma célula.", "Atenção!",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnOperacoes_Click(object sender, EventArgs e)
+        {
+            frmOperacoes frmOp = new frmOperacoes(this);
+            this.Hide();
+            frmOp.Show();
         }
     }
 }

@@ -215,8 +215,7 @@ namespace MatrizEsparsa
             while (percCol.Coluna < coluna && percCol.Direita != cabecaLinha)
                 percCol = percCol.Direita;
 
-
-            if (percCol.Coluna > coluna)
+            if (percCol.Coluna != coluna)
                 return ValorPadrao;
 
             return percCol.Valor;
@@ -227,9 +226,46 @@ namespace MatrizEsparsa
         /// </summary>
         /// <param name="linha"></param>
         /// <param name="coluna"></param>
-        public void RemoverEm(int linha, int coluna)
+        public bool RemoverEm(int linha, int coluna)
         {
-            throw new NotImplementedException();
+            if (linha < 0  || linha >= this.Linhas ||
+                coluna < 0 || coluna >= this.Colunas)
+                throw new ArgumentOutOfRangeException("Linha/Coluna fora do intervalo de remoção");
+
+            // não há célula para remover
+            if (ValorDe(linha, coluna) == ValorPadrao)
+                return false;
+
+            // percorre as colunas cabeças para achar cabecaColuna
+            Celula cabecaColuna = cabecaPrincipal;
+            for (int j = 0; j <= coluna; j++)
+                cabecaColuna = cabecaColuna.Direita;
+
+            // percorre as linhas cabeças para achar a cabecaLinha
+            Celula cabecaLinha = cabecaPrincipal;
+            for (int i = 0; i <= linha; i++)
+                cabecaLinha = cabecaLinha.Abaixo;
+
+            Celula anterior = cabecaLinha;
+            Celula atual    = cabecaLinha.Direita; // atual posiciona na célula que será removida
+
+            while (atual.Coluna < coluna && atual.Coluna != -1)
+            {
+                anterior = atual;
+                atual = atual.Direita;
+            }
+
+            anterior.Direita = atual.Direita;
+
+            // percorre as colunas para acertar as ligacoes
+            Celula percCol = cabecaColuna;
+            while (percCol.Abaixo != atual)
+                percCol = percCol.Abaixo;
+
+            percCol.Abaixo = atual.Abaixo;
+
+            //atual = null;
+            return true;
         }
 
         /// <summary>

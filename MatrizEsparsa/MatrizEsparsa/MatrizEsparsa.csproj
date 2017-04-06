@@ -53,11 +53,20 @@
     <Compile Include="frmMatrizEsparsa.Designer.cs">
       <DependentUpon>frmMatrizEsparsa.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmOperacoes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOperacoes.Designer.cs">
+      <DependentUpon>frmOperacoes.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListaLigadaCruzada.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmMatrizEsparsa.resx">
       <DependentUpon>frmMatrizEsparsa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOperacoes.resx">
+      <DependentUpon>frmOperacoes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
