@@ -10,13 +10,10 @@ namespace MatrizEsparsa
 {
     class ListaLigadaCruzada
     {
-        // n = linhas
-        // m = colunas
-        int n, m;
-
+        int linhas, colunas;
         Celula cabecaPrincipal;
 
-        // valor padrão quando não guarda-se uma célula.
+        // Retorno quando a célula não está guardada na matriz esparsa
         public static int ValorPadrao = 0;
 
         /// <summary>
@@ -24,7 +21,7 @@ namespace MatrizEsparsa
         /// </summary>
         public int Linhas
         {
-            get { return n; }
+            get { return linhas; }
         }
 
         /// <summary>
@@ -32,7 +29,7 @@ namespace MatrizEsparsa
         /// </summary>
         public int Colunas
         {
-            get { return m; }
+            get { return colunas; }
         }
 
         /// <summary>
@@ -45,51 +42,51 @@ namespace MatrizEsparsa
 
         /// <summary>
         /// Construtor da matriz esparsa. Recebe a quantidade de linhas e colunas que
-        /// a matriz deverá conter. Cria a estrutura da matriz esparsa (nós-cabeça).
+        /// a matriz deverá conter. Cria a estrutura da matriz esparsa (células cabeça).
         /// </summary>
         /// <param name="linhas"></param>
         /// <param name="colunas"></param>
         public ListaLigadaCruzada(int linhas, int colunas)
         {
             if (linhas <= 0 || colunas <= 0)
-                throw new ArgumentOutOfRangeException("Quantidade de linhas e colunas não podem ser 0 ou negativo.");
+                throw new ArgumentOutOfRangeException("Quantidade de linhas/colunas não podem ser 0 ou negativo.");
 
-            n = linhas;
-            m = colunas;
+            this.linhas  = linhas;
+            this.colunas = colunas;
 
-            cabecaPrincipal = new Celula(Convert.ToDouble(null), -1, -1);
-            cabecaPrincipal.Direita = cabecaPrincipal;
+            cabecaPrincipal = new Celula(null, -1, -1);
 
             // inicia o percurso para criar as linhas da matriz
-            Celula atual = cabecaPrincipal;
+            Celula percurso = cabecaPrincipal;
+
             for (int i = 0; i < linhas; i++)
             {
-                Celula cabeca  = new Celula(Convert.ToDouble(null), i, -1);
-                cabeca.Direita = cabeca;
+                Celula linhaCabeca  = new Celula(null, i, -1);
 
-                atual.Abaixo  = cabeca;
-                atual         = atual.Abaixo;
+                percurso.Abaixo  = linhaCabeca;
+                percurso.Direita = percurso;
+                percurso         = percurso.Abaixo;
             }
-            // aponta para a primeira cabeca criando a lista circular
-            atual.Abaixo = cabecaPrincipal;
+            percurso.Abaixo  = cabecaPrincipal;
+            percurso.Direita = percurso;
 
-            // inicia o outro percurso para criar as colunas da matriz
-            atual = cabecaPrincipal;
+            // inicia outro percurso para criar as colunas da matriz
+            percurso = cabecaPrincipal;
+
             for (int i = 0; i < colunas; i++)
             {
-                Celula cabeca = new Celula(Convert.ToDouble(null), -1, i);
-                cabeca.Abaixo = cabeca;
+                Celula colunaCabeca = new Celula(null, -1, i);
 
-                // necessita verificar se é a cabecaPrincipal para não perder
-                // a lista circular de linhas
-                if (atual != cabecaPrincipal)
-                    atual.Abaixo = atual;
+                // verifica se é a cabecaPrincipal para não perder
+                // a lista das linhas
+                if (percurso != cabecaPrincipal)
+                    percurso.Abaixo = percurso;
 
-                atual.Direita = cabeca;
-                atual         = atual.Direita;
+                percurso.Direita = colunaCabeca;
+                percurso         = percurso.Direita;
             }
-            // aponta para a primeira cabeca criando a lista circular
-            atual.Direita = cabecaPrincipal;
+            percurso.Abaixo  = percurso;
+            percurso.Direita = cabecaPrincipal;
         }
 
         /// <summary>
@@ -98,34 +95,33 @@ namespace MatrizEsparsa
         /// <param name="elemento"></param>
         /// <param name="linha"></param>
         /// <param name="coluna"></param>
-        /// <remarks>Cria uma célula no lugar que conterá o valor.</remarks>
+        /// <remarks>Cria uma célula no lugar que conterá o valor diferente de 0.</remarks>
         public void InserirElemento(double elemento, int linha, int coluna)
         {
             if (linha  < 0 || linha  >= this.Linhas ||
                 coluna < 0 || coluna >= this.Colunas)
-                throw new ArgumentOutOfRangeException("Linha/Coluna fora do intervalo da matriz para inserir");
+                throw new ArgumentOutOfRangeException("Linha/Coluna estão fora do intervalo de inserção.");
 
             // não será guardado elementos com o ValorPadrao
             if (elemento == ValorPadrao)
-                return;
+                throw new ArgumentException("O elemento de inserção não deve ser 0.");
 
-            // percorre as colunas cabeças para achar cabecaColuna
-            Celula cabecaColuna = cabecaPrincipal;
+            Celula colunaCabeca = cabecaPrincipal;
+            Celula linhaCabeca  = cabecaPrincipal;
+
             for (int j = 0; j <= coluna; j++)
-                cabecaColuna = cabecaColuna.Direita;
+                colunaCabeca = colunaCabeca.Direita;
+            
+            for (int i = 0; i <= linha; i++) 
+                linhaCabeca = linhaCabeca.Abaixo;
 
-            // percorre as linhas cabeças para achar a cabecaLinha
-            Celula cabecaLinha = cabecaPrincipal;
-            for (int i = 0; i <= linha; i++)
-                cabecaLinha = cabecaLinha.Abaixo;
-
-            Celula anterior = cabecaLinha;
-            Celula atual    = cabecaLinha.Direita;
+            Celula anterior = linhaCabeca;
+            Celula atual    = linhaCabeca.Direita;
 
             while (atual.Coluna < coluna && atual.Coluna != -1)
             {
                 anterior = atual;
-                atual = atual.Direita;
+                atual    = atual.Direita;
             }
 
             if (ValorDe(linha, coluna) == 0)
@@ -136,23 +132,19 @@ namespace MatrizEsparsa
                 anterior.Direita = insercao;
                 insercao.Direita = atual;
 
+                Celula colunaAnterior = colunaCabeca;
+                Celula percursoColuna = colunaCabeca.Abaixo;
 
-                // percorre a lista circular da coluna para que o último dessa lista
-                // comece a apontar para a nova célula inserida
-                Celula anteriorColuna = cabecaColuna;
-                Celula percursoColuna = cabecaColuna.Abaixo;
-
-                while (percursoColuna.Abaixo != cabecaColuna && percursoColuna.Linha < linha)
+                while (percursoColuna.Abaixo != colunaCabeca && percursoColuna.Linha < linha)
                 {
-                    anteriorColuna = percursoColuna;
+                    colunaAnterior = percursoColuna;
                     percursoColuna = percursoColuna.Abaixo;
                 }
-
-                insercao.Abaixo = percursoColuna;
-                anteriorColuna.Abaixo = insercao;
+                insercao.Abaixo       = percursoColuna;
+                colunaAnterior.Abaixo = insercao;
             }
             else
-                atual.Valor = elemento;
+                atual.Valor = elemento; // apenas altera o valor da célula já existente
         }
 
         /// <summary>
@@ -163,27 +155,28 @@ namespace MatrizEsparsa
         {
             StreamReader sr = new StreamReader(arquivo);
 
-            string linhaArq = sr.ReadLine();
+            string linhaArquivo = sr.ReadLine();
 
-            while (linhaArq.Contains("//")) // usado para pular comentários no arquivo
-                linhaArq = sr.ReadLine();
+            while (linhaArquivo.Contains("//")) // usado para pular comentários no arquivo
+                linhaArquivo = sr.ReadLine();
 
-            string[] cabecalho = linhaArq.Split(' '); // cabecalho possui as informacoes da coordenada da matriz
+            string[] coordenadas = linhaArquivo.Split(' ');
 
-            // instancia a matrizEsparsa com as coordenadas no início do arquivo
-            ListaLigadaCruzada matrizEsparsa = new ListaLigadaCruzada(Convert.ToInt32(cabecalho[0]), Convert.ToInt32(cabecalho[1]));
+            int linhas  = Convert.ToInt32(coordenadas[0]);
+            int colunas = Convert.ToInt32(coordenadas[1]);
 
-            // adiciona as células que estão no arquivo
-            while ((linhaArq = sr.ReadLine()) != null)
+            ListaLigadaCruzada matrizEsparsa = new ListaLigadaCruzada(linhas, colunas);
+
+            while ((linhaArquivo = sr.ReadLine()) != null)
             {
-                if (linhaArq.Contains("//")) // pular comentários
+                if (linhaArquivo.Contains("//")) // pular comentários durante a inserção de células
                     continue;
 
-                string[] celula = linhaArq.Split(' ');
+                string[] celula = linhaArquivo.Split(' ');
 
                 double elemento = Convert.ToDouble(celula[0]);
-                int linha = Convert.ToInt32(celula[1]);
-                int coluna = Convert.ToInt32(celula[2]);
+                int linha       = Convert.ToInt32 (celula[1]);
+                int coluna      = Convert.ToInt32 (celula[2]);
 
                 matrizEsparsa.InserirElemento(elemento, linha, coluna);
             }
@@ -198,27 +191,27 @@ namespace MatrizEsparsa
         /// <param name="linha"></param>
         /// <param name="coluna"></param>
         /// <returns>Valor double contido na célula.</returns>
-        public double ValorDe(int linha, int coluna)
+        public double? ValorDe(int linha, int coluna)
         {
             if (linha < 0 || coluna < 0 ||
-                linha > Linhas || coluna > Colunas)
-                throw new ArgumentOutOfRangeException("Linha e coluna estão foras do intervalo.");
+                linha >= Linhas || coluna >= Colunas)
+                throw new ArgumentOutOfRangeException("Linha ou coluna estão foras do intervalo de pesquisa.");
 
-            Celula cabecaLinha = cabecaPrincipal;
+            Celula linhaCabeca = cabecaPrincipal;
 
-            // percorre as linhas
             for (int i = 0; i <= linha; i++)
-                cabecaLinha = cabecaLinha.Abaixo;
+                linhaCabeca = linhaCabeca.Abaixo;
 
-            // percorre as colunas
-            Celula percCol = cabecaLinha.Direita;
-            while (percCol.Coluna < coluna && percCol.Direita != cabecaLinha)
-                percCol = percCol.Direita;
+            // percorre as colunas da linha para posicionar na célula e retornar o valor correspondente
+            Celula percursoColuna = linhaCabeca.Direita;
 
-            if (percCol.Coluna != coluna)
+            while (percursoColuna.Coluna < coluna && percursoColuna.Direita != linhaCabeca)
+                percursoColuna = percursoColuna.Direita;
+
+            if (percursoColuna.Coluna != coluna)
                 return ValorPadrao;
 
-            return percCol.Valor;
+            return percursoColuna.Valor;
         }
 
         /// <summary>
@@ -228,26 +221,24 @@ namespace MatrizEsparsa
         /// <param name="coluna"></param>
         public bool RemoverEm(int linha, int coluna)
         {
-            if (linha < 0  || linha >= this.Linhas ||
-                coluna < 0 || coluna >= this.Colunas)
-                throw new ArgumentOutOfRangeException("Linha/Coluna fora do intervalo de remoção");
-
-            // não há célula para remover
+            if (linha  < 0  || linha  >= Linhas ||
+                coluna < 0  || coluna >= Colunas)
+                throw new ArgumentOutOfRangeException("Linha ou Coluna fora do intervalo de remoção");
+            
             if (ValorDe(linha, coluna) == ValorPadrao)
-                return false;
+                return false; // não há nada para remover
 
-            // percorre as colunas cabeças para achar cabecaColuna
-            Celula cabecaColuna = cabecaPrincipal;
+            Celula colunaCabeca = cabecaPrincipal;
+            Celula linhaCabeca  = cabecaPrincipal;
+
             for (int j = 0; j <= coluna; j++)
-                cabecaColuna = cabecaColuna.Direita;
+                colunaCabeca = colunaCabeca.Direita;
 
-            // percorre as linhas cabeças para achar a cabecaLinha
-            Celula cabecaLinha = cabecaPrincipal;
             for (int i = 0; i <= linha; i++)
-                cabecaLinha = cabecaLinha.Abaixo;
+                linhaCabeca = linhaCabeca.Abaixo;
 
-            Celula anterior = cabecaLinha;
-            Celula atual    = cabecaLinha.Direita; // atual posiciona na célula que será removida
+            Celula anterior = linhaCabeca;
+            Celula atual    = linhaCabeca.Direita; // atual posicionará na célula que será removida
 
             while (atual.Coluna < coluna && atual.Coluna != -1)
             {
@@ -257,14 +248,14 @@ namespace MatrizEsparsa
 
             anterior.Direita = atual.Direita;
 
-            // percorre as colunas para acertar as ligacoes
-            Celula percCol = cabecaColuna;
-            while (percCol.Abaixo != atual)
-                percCol = percCol.Abaixo;
+            // percorre as colunas para acertar as ligações necessárias
+            Celula percursoColuna = colunaCabeca;
 
-            percCol.Abaixo = atual.Abaixo;
+            while (percursoColuna.Abaixo != atual)
+                percursoColuna = percursoColuna.Abaixo;
 
-            //atual = null;
+            percursoColuna.Abaixo = atual.Abaixo;
+
             return true;
         }
 
@@ -284,28 +275,27 @@ namespace MatrizEsparsa
         /// <param name="gridView"></param>
         public void ExibirDataGridView(DataGridView gridView)
         {
+            if (gridView == null)
+                throw new ArgumentException("gridView utilizado é nulo.");
+
             gridView.Columns.Clear();
             gridView.Rows.Clear();
 
-            // cria o cabecalho das colunas da matriz
+            // cria o cabeçalho das colunas
             for (int i = 0; i < this.Colunas; i++)
                 gridView.Columns.Add(i.ToString(), i.ToString());
 
+            string[] linhaMatriz = new string[this.Colunas];
 
-
-            string[] linha = new string[this.Colunas];
-
-            //gridView.RowHeadersWidth = 50;
-
-            // percorre os valores das linhas e insere no gridView
+            // percorre as linhas da matriz e insere no gridView
             for (int j = 0; j < this.Linhas; j++)
             {
                 for (int k = 0; k < this.Colunas; k++)
                 {
-                    linha[k] = this.ValorDe(j, k).ToString();
+                    linhaMatriz[k] = this.ValorDe(j, k).ToString();
                 }
-                gridView.Rows.Add(linha);
-                gridView.Rows[j].HeaderCell.Value = j.ToString();
+                gridView.Rows.Add(linhaMatriz);
+                gridView.Rows[j].HeaderCell.Value = j.ToString(); // adiciona cabeçalho da linha
             }
             gridView.AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders);
             gridView.AutoResizeColumns();
@@ -317,10 +307,8 @@ namespace MatrizEsparsa
         public void ApagarMatriz()
         {
             cabecaPrincipal = null;
-
-            // matriz não existe mais, não há mais linhas
-            n = 0;
-            m = 0;
+            linhas          = 0;
+            colunas         = 0;
         }
 
         /// <summary>
@@ -351,22 +339,22 @@ namespace MatrizEsparsa
         {
             String ret = "{ ";
 
-            Celula cabecaLinha = cabecaPrincipal.Abaixo;
+            Celula linhaCabeca = cabecaPrincipal.Abaixo;
 
-            while (cabecaLinha != cabecaPrincipal)
+            while (linhaCabeca != cabecaPrincipal)
             {
-                Celula percLinha = cabecaLinha.Direita;
-                while (percLinha != cabecaLinha)
-                {
-                    ret += percLinha.ToString() + (percLinha.Direita != cabecaLinha ? ", " : " ");
+                Celula percursoLinha = linhaCabeca.Direita;
 
-                    percLinha = percLinha.Direita;
+                while (percursoLinha != linhaCabeca)
+                {
+                    ret += percursoLinha.ToString() + (percursoLinha.Direita != linhaCabeca ? ", " : " ");
+
+                    percursoLinha = percursoLinha.Direita;
                 }
 
-                cabecaLinha = cabecaLinha.Abaixo;
+                linhaCabeca = linhaCabeca.Abaixo;
             }
             return ret + "}";
         }
-
     }
 }
