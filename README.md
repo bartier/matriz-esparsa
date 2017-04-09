@@ -1,7 +1,8 @@
 Matriz Esparsa
 ================
 
-** Projeto apresentado na matéria de Estrutura de Dados no curso técnico do COTUCA. Desenvolvido com C#.**
+**Projeto apresentado na matéria de Estrutura de Dados no curso técnico do COTUCA. Desenvolvido com C#.**
+
 
 ## O que é matriz esparsa?
 

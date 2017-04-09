@@ -191,7 +191,7 @@ namespace MatrizEsparsa
         /// <param name="linha"></param>
         /// <param name="coluna"></param>
         /// <returns>Valor double contido na célula.</returns>
-        public double? ValorDe(int linha, int coluna)
+        public double ValorDe(int linha, int coluna)
         {
             if (linha < 0 || coluna < 0 ||
                 linha >= Linhas || coluna >= Colunas)
@@ -211,7 +211,7 @@ namespace MatrizEsparsa
             if (percursoColuna.Coluna != coluna)
                 return ValorPadrao;
 
-            return percursoColuna.Valor;
+            return (double)percursoColuna.Valor;
         }
 
         /// <summary>
@@ -260,13 +260,29 @@ namespace MatrizEsparsa
         }
 
         /// <summary>
-        /// Soma em todas as células o valor da constante K.
+        /// Soma o valor K a todos os elementos da coluna
         /// </summary>
-        /// <param name="k"></param>
-        /// <param name="coluna"></param>
-        public void SomarEmTodos(double k, int coluna)
+        /// <param name="k">Valor que será somado na célula das colunas</param>
+        /// <param name="coluna">Coluna que será somada</param>
+        public void SomarNaColuna(double k, int coluna)
         {
-            throw new NotImplementedException();
+            if (coluna < 0 || coluna >= Colunas)
+                throw new ArgumentException("Coluna inválida.");
+
+            if (k == 0)
+                throw new ArgumentException("Verifique se K é diferente de 0.");
+
+            double elementoAtual = 0;
+            for (int i=0; i<Linhas; i++)
+            {
+                elementoAtual = ValorDe(i, coluna);
+                if (elementoAtual + k == 0)
+                {
+                    RemoverEm(i, coluna);
+                    continue;
+                }
+                InserirElemento(elementoAtual + k, i, coluna);
+            }
         }
 
         /// <summary>
