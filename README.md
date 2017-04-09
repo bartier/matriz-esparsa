@@ -42,7 +42,7 @@ O programa deve ter as seguintes operações:
 - [x] Exibir a matriz na tela, em um gridView
 - [x] Liberar todas as posições alocadas da matriz, incluindo sua estrutura básica
 - [x] Remover o elemento (l,c) da matriz
-- [ ] Somar a constante K a todos os elementos da coluna c da matriz
+- [x] Somar a constante K a todos os elementos da coluna C da matriz
 - [ ] Somar duas matrizes esparsas, cada uma representada em uma estrutura própria e ambas exibidas
 em seu próprio gridView. O resultado deve gerar uma nova estrutura de matriz esparsa e exibido
 em um gridview próprio
