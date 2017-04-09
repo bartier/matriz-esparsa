@@ -54,7 +54,7 @@ namespace MatrizEsparsa
 
         private void btnCriarMatrizEsparsa_Click(object sender, EventArgs e)
         {
-            if (numColunas.Value >0 || numLinhas.Value >0)
+            if (numColunas.Value >0 && numLinhas.Value >0 && numColunas.Value<656 && numLinhas.Value<656)
             {
                 int linhas  = Convert.ToInt32(numLinhas.Text);
                 int colunas = Convert.ToInt32(numColunas.Text);
@@ -64,7 +64,7 @@ namespace MatrizEsparsa
 
                 // atualiza os campos necessários
                 numLinhaRemocao.Maximum  = numLinhaPesquisa.Maximum  = numLinhaInsercao.Maximum  = matrizEsparsa.Linhas -1;
-                numColunaRemocao.Maximum = numColunaPesquisa.Maximum = numColunaInsercao.Maximum = matrizEsparsa.Colunas -1;
+                numColunaSoma.Maximum    = numColunaRemocao.Maximum  = numColunaPesquisa.Maximum = numColunaInsercao.Maximum = matrizEsparsa.Colunas -1;
                 
                 matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
             }
@@ -140,12 +140,13 @@ namespace MatrizEsparsa
         {
             if (!matrizEsparsa.EstaDesalocada && numColunaRemocao.Value >=0 && numLinhaRemocao.Value >=0)
             {
-                if (!matrizEsparsa.RemoverEm(Convert.ToInt32(numLinhaRemocao.Value), Convert.ToInt32(numColunaInsercao.Value)))
+                if (!matrizEsparsa.RemoverEm(Convert.ToInt32(numLinhaRemocao.Value), Convert.ToInt32(numColunaRemocao.Value)))
                     MessageBox.Show("Não há célula nessa coordenada para remover.");
                 else
+                {
+                    matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
                     MessageBox.Show("Removido com sucesso.");
-
-                matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
+                }
             }
             else
                 MessageBox.Show("Não é possível remover com os valores dados." +
@@ -158,6 +159,25 @@ namespace MatrizEsparsa
             frmOperacoes frmOp = new frmOperacoes(this);
             this.Hide();
             frmOp.Show();
+        }
+
+        private void btnSomar_Click(object sender, EventArgs e)
+        {
+            double valorSoma = 0;
+            if (double.TryParse(txtValorSoma.Text, out valorSoma) && valorSoma!=0)
+            {
+                matrizEsparsa.SomarNaColuna(valorSoma, Convert.ToInt32(numColunaSoma.Value));
+                matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
+            }
+            else
+                MessageBox.Show("Não é possível somar na coluna indicada esse valor." +
+                " Verifique se os valores são válidos.", "Atenção!",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void btnGitHub_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

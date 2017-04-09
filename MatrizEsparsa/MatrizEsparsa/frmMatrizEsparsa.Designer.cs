@@ -64,6 +64,12 @@
             this.btnSobre = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnGitHub = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtValorSoma = new System.Windows.Forms.TextBox();
+            this.numColunaSoma = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnSomar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgMatrizEsparsa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLinhas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColunas)).BeginInit();
@@ -79,6 +85,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numColunaRemocao)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLinhaRemocao)).BeginInit();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numColunaSoma)).BeginInit();
             this.SuspendLayout();
             // 
             // dgMatrizEsparsa
@@ -92,14 +100,14 @@
             this.dgMatrizEsparsa.Location = new System.Drawing.Point(12, 103);
             this.dgMatrizEsparsa.Name = "dgMatrizEsparsa";
             this.dgMatrizEsparsa.ReadOnly = true;
-            this.dgMatrizEsparsa.Size = new System.Drawing.Size(1306, 260);
+            this.dgMatrizEsparsa.Size = new System.Drawing.Size(1338, 260);
             this.dgMatrizEsparsa.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(3, 6);
+            this.label2.Location = new System.Drawing.Point(3, 3);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 20);
             this.label2.TabIndex = 4;
@@ -109,7 +117,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 37);
+            this.label3.Location = new System.Drawing.Point(3, 29);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 20);
             this.label3.TabIndex = 5;
@@ -117,9 +125,9 @@
             // 
             // btnCriarMatrizEsparsa
             // 
-            this.btnCriarMatrizEsparsa.Location = new System.Drawing.Point(160, 9);
+            this.btnCriarMatrizEsparsa.Location = new System.Drawing.Point(7, 55);
             this.btnCriarMatrizEsparsa.Name = "btnCriarMatrizEsparsa";
-            this.btnCriarMatrizEsparsa.Size = new System.Drawing.Size(93, 64);
+            this.btnCriarMatrizEsparsa.Size = new System.Drawing.Size(119, 21);
             this.btnCriarMatrizEsparsa.TabIndex = 8;
             this.btnCriarMatrizEsparsa.Text = "Criar Matriz Esparsa";
             this.btnCriarMatrizEsparsa.UseVisualStyleBackColor = true;
@@ -133,7 +141,7 @@
             // 
             // numLinhas
             // 
-            this.numLinhas.Location = new System.Drawing.Point(80, 6);
+            this.numLinhas.Location = new System.Drawing.Point(80, 3);
             this.numLinhas.Maximum = new decimal(new int[] {
             655,
             0,
@@ -145,7 +153,7 @@
             0,
             0});
             this.numLinhas.Name = "numLinhas";
-            this.numLinhas.Size = new System.Drawing.Size(65, 20);
+            this.numLinhas.Size = new System.Drawing.Size(46, 20);
             this.numLinhas.TabIndex = 11;
             this.numLinhas.Value = new decimal(new int[] {
             1,
@@ -155,7 +163,7 @@
             // 
             // numColunas
             // 
-            this.numColunas.Location = new System.Drawing.Point(80, 37);
+            this.numColunas.Location = new System.Drawing.Point(80, 29);
             this.numColunas.Maximum = new decimal(new int[] {
             655,
             0,
@@ -167,7 +175,7 @@
             0,
             0});
             this.numColunas.Name = "numColunas";
-            this.numColunas.Size = new System.Drawing.Size(65, 20);
+            this.numColunas.Size = new System.Drawing.Size(46, 20);
             this.numColunas.TabIndex = 12;
             this.numColunas.Value = new decimal(new int[] {
             1,
@@ -185,7 +193,7 @@
             this.panelGerarMatriz.Controls.Add(this.numColunas);
             this.panelGerarMatriz.Location = new System.Drawing.Point(12, 12);
             this.panelGerarMatriz.Name = "panelGerarMatriz";
-            this.panelGerarMatriz.Size = new System.Drawing.Size(260, 85);
+            this.panelGerarMatriz.Size = new System.Drawing.Size(136, 85);
             this.panelGerarMatriz.TabIndex = 21;
             // 
             // panelInserirElemento
@@ -198,7 +206,7 @@
             this.panelInserirElemento.Controls.Add(this.label4);
             this.panelInserirElemento.Controls.Add(this.txtElementoInsercao);
             this.panelInserirElemento.Controls.Add(this.btnInserirElemento);
-            this.panelInserirElemento.Location = new System.Drawing.Point(278, 12);
+            this.panelInserirElemento.Location = new System.Drawing.Point(154, 12);
             this.panelInserirElemento.Name = "panelInserirElemento";
             this.panelInserirElemento.Size = new System.Drawing.Size(193, 85);
             this.panelInserirElemento.TabIndex = 22;
@@ -266,7 +274,7 @@
             // 
             // btnInserirElemento
             // 
-            this.btnInserirElemento.Location = new System.Drawing.Point(1, 51);
+            this.btnInserirElemento.Location = new System.Drawing.Point(1, 55);
             this.btnInserirElemento.Name = "btnInserirElemento";
             this.btnInserirElemento.Size = new System.Drawing.Size(185, 21);
             this.btnInserirElemento.TabIndex = 21;
@@ -281,14 +289,14 @@
             this.panelOpcoes.Controls.Add(this.btbDesalocarMatriz);
             this.panelOpcoes.Controls.Add(this.btnLerArquivo);
             this.panelOpcoes.Controls.Add(this.btnCelulasGuardadas);
-            this.panelOpcoes.Location = new System.Drawing.Point(673, 12);
+            this.panelOpcoes.Location = new System.Drawing.Point(549, 12);
             this.panelOpcoes.Name = "panelOpcoes";
-            this.panelOpcoes.Size = new System.Drawing.Size(300, 85);
+            this.panelOpcoes.Size = new System.Drawing.Size(267, 85);
             this.panelOpcoes.TabIndex = 23;
             // 
             // btnOperacoes
             // 
-            this.btnOperacoes.Location = new System.Drawing.Point(153, 6);
+            this.btnOperacoes.Location = new System.Drawing.Point(116, 7);
             this.btnOperacoes.Name = "btnOperacoes";
             this.btnOperacoes.Size = new System.Drawing.Size(144, 33);
             this.btnOperacoes.TabIndex = 21;
@@ -298,7 +306,7 @@
             // 
             // btbDesalocarMatriz
             // 
-            this.btbDesalocarMatriz.Location = new System.Drawing.Point(153, 42);
+            this.btbDesalocarMatriz.Location = new System.Drawing.Point(116, 43);
             this.btbDesalocarMatriz.Name = "btbDesalocarMatriz";
             this.btbDesalocarMatriz.Size = new System.Drawing.Size(144, 33);
             this.btbDesalocarMatriz.TabIndex = 20;
@@ -310,7 +318,7 @@
             // 
             this.btnLerArquivo.Location = new System.Drawing.Point(3, 5);
             this.btnLerArquivo.Name = "btnLerArquivo";
-            this.btnLerArquivo.Size = new System.Drawing.Size(144, 34);
+            this.btnLerArquivo.Size = new System.Drawing.Size(107, 34);
             this.btnLerArquivo.TabIndex = 18;
             this.btnLerArquivo.Text = "Ler de Arquivo";
             this.btnLerArquivo.UseVisualStyleBackColor = true;
@@ -320,7 +328,7 @@
             // 
             this.btnCelulasGuardadas.Location = new System.Drawing.Point(3, 43);
             this.btnCelulasGuardadas.Name = "btnCelulasGuardadas";
-            this.btnCelulasGuardadas.Size = new System.Drawing.Size(144, 33);
+            this.btnCelulasGuardadas.Size = new System.Drawing.Size(107, 33);
             this.btnCelulasGuardadas.TabIndex = 17;
             this.btnCelulasGuardadas.Text = "Células guardadas";
             this.btnCelulasGuardadas.UseVisualStyleBackColor = true;
@@ -334,9 +342,9 @@
             this.panel4.Controls.Add(this.label7);
             this.panel4.Controls.Add(this.label8);
             this.panel4.Controls.Add(this.numLinhaPesquisa);
-            this.panel4.Location = new System.Drawing.Point(979, 12);
+            this.panel4.Location = new System.Drawing.Point(822, 11);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(209, 85);
+            this.panel4.Size = new System.Drawing.Size(192, 85);
             this.panel4.TabIndex = 24;
             // 
             // numColunaPesquisa
@@ -353,9 +361,9 @@
             // 
             // btnPesquisar
             // 
-            this.btnPesquisar.Location = new System.Drawing.Point(3, 34);
+            this.btnPesquisar.Location = new System.Drawing.Point(4, 32);
             this.btnPesquisar.Name = "btnPesquisar";
-            this.btnPesquisar.Size = new System.Drawing.Size(203, 48);
+            this.btnPesquisar.Size = new System.Drawing.Size(181, 45);
             this.btnPesquisar.TabIndex = 0;
             this.btnPesquisar.Text = "Pesquisar";
             this.btnPesquisar.UseVisualStyleBackColor = true;
@@ -401,7 +409,7 @@
             this.panel1.Controls.Add(this.numLinhaRemocao);
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.btnRemoverCelula);
-            this.panel1.Location = new System.Drawing.Point(477, 12);
+            this.panel1.Location = new System.Drawing.Point(353, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(190, 85);
             this.panel1.TabIndex = 28;
@@ -464,7 +472,7 @@
             // 
             this.btnSobre.Location = new System.Drawing.Point(3, 7);
             this.btnSobre.Name = "btnSobre";
-            this.btnSobre.Size = new System.Drawing.Size(87, 29);
+            this.btnSobre.Size = new System.Drawing.Size(75, 29);
             this.btnSobre.TabIndex = 29;
             this.btnSobre.Text = "Autores";
             this.btnSobre.UseVisualStyleBackColor = true;
@@ -475,25 +483,89 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.btnGitHub);
             this.panel2.Controls.Add(this.btnSobre);
-            this.panel2.Location = new System.Drawing.Point(1194, 12);
+            this.panel2.Location = new System.Drawing.Point(1258, 12);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(102, 80);
+            this.panel2.Size = new System.Drawing.Size(92, 80);
             this.panel2.TabIndex = 32;
             // 
             // btnGitHub
             // 
-            this.btnGitHub.Location = new System.Drawing.Point(3, 42);
+            this.btnGitHub.Location = new System.Drawing.Point(3, 41);
             this.btnGitHub.Name = "btnGitHub";
-            this.btnGitHub.Size = new System.Drawing.Size(87, 31);
+            this.btnGitHub.Size = new System.Drawing.Size(75, 31);
             this.btnGitHub.TabIndex = 30;
             this.btnGitHub.Text = "GitHub";
             this.btnGitHub.UseVisualStyleBackColor = true;
+            this.btnGitHub.Click += new System.EventHandler(this.btnGitHub_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Controls.Add(this.label11);
+            this.panel3.Controls.Add(this.txtValorSoma);
+            this.panel3.Controls.Add(this.numColunaSoma);
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.btnSomar);
+            this.panel3.Location = new System.Drawing.Point(1020, 12);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(167, 80);
+            this.panel3.TabIndex = 33;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(3, 29);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(59, 16);
+            this.label11.TabIndex = 34;
+            this.label11.Text = "Número:";
+            // 
+            // txtValorSoma
+            // 
+            this.txtValorSoma.Location = new System.Drawing.Point(63, 29);
+            this.txtValorSoma.Name = "txtValorSoma";
+            this.txtValorSoma.Size = new System.Drawing.Size(64, 20);
+            this.txtValorSoma.TabIndex = 33;
+            // 
+            // numColunaSoma
+            // 
+            this.numColunaSoma.Location = new System.Drawing.Point(63, 5);
+            this.numColunaSoma.Maximum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numColunaSoma.Name = "numColunaSoma";
+            this.numColunaSoma.Size = new System.Drawing.Size(33, 20);
+            this.numColunaSoma.TabIndex = 32;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 16);
+            this.label1.TabIndex = 31;
+            this.label1.Text = "Coluna:";
+            // 
+            // btnSomar
+            // 
+            this.btnSomar.Location = new System.Drawing.Point(2, 52);
+            this.btnSomar.Name = "btnSomar";
+            this.btnSomar.Size = new System.Drawing.Size(158, 21);
+            this.btnSomar.TabIndex = 30;
+            this.btnSomar.Text = "Somar na coluna";
+            this.btnSomar.UseVisualStyleBackColor = true;
+            this.btnSomar.Click += new System.EventHandler(this.btnSomar_Click);
             // 
             // frmMatrizEsparsa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1330, 375);
+            this.ClientSize = new System.Drawing.Size(1362, 375);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel4);
@@ -525,6 +597,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numColunaRemocao)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLinhaRemocao)).EndInit();
             this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numColunaSoma)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -566,6 +641,12 @@
         private System.Windows.Forms.Button btnOperacoes;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnGitHub;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtValorSoma;
+        private System.Windows.Forms.NumericUpDown numColunaSoma;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnSomar;
     }
 }
 
