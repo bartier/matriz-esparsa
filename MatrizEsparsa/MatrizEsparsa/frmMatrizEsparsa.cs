@@ -21,24 +21,32 @@ namespace MatrizEsparsa
 
         private void frmMatrizEsparsa_Load(object sender, EventArgs e)
         {
-            matrizEsparsa = new ListaLigadaCruzada(Convert.ToInt32(numLinhas.Value), Convert.ToInt32(numColunas.Value));
+            // linhas e colunas iniciarão com o valor 1 (respectivos NumericUpDown)
+            int linhas  = Convert.ToInt32(numLinhas.Value);
+            int colunas = Convert.ToInt32(numColunas.Value);
 
-            // atualiza no gridView a matriz criada
+            // primeira matriz do programa terá 1 linha e 1 coluna
+            matrizEsparsa = new ListaLigadaCruzada(linhas, colunas);
             matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
         }
 
         private void btnLerArquivo_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("O arquivo deve conter as coordenadas que a matriz terá e depois os elementos não nulos. Exemplo: \n" + 
-                            " 3 3 \n 10 0 0 \n 15 0 2",
-                            "Orientações de arquivo de matriz esparsa:", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("O arquivo deve conter as coordenadas que a matriz terá e depois"    +
+                            " as células diferentes de 0 (elemento, linha, coluna). Exemplo: \n" + 
+                            " 3 3 \n 10 0 0 \n 15 0 2", "Orientações de arquivo de matriz esparsa:", 
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 matrizEsparsa = matrizEsparsa.LerArquivo(openFileDialog1.FileName);
 
-                numLinhaPesquisa.Maximum  = numLinhas.Value  = matrizEsparsa.Linhas;
-                numColunaPesquisa.Maximum = numColunas.Value = matrizEsparsa.Colunas;
+                // atualiza os campos necessários
+                numLinhas.Value  = matrizEsparsa.Linhas;
+                numColunas.Value = matrizEsparsa.Colunas;
+
+                numLinhaPesquisa.Maximum  = numLinhaInsercao.Maximum  = matrizEsparsa.Linhas  - 1;
+                numColunaPesquisa.Maximum = numColunaInsercao.Maximum = matrizEsparsa.Colunas - 1;
 
                 matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
             }            
@@ -48,13 +56,16 @@ namespace MatrizEsparsa
         {
             if (numColunas.Value >0 || numLinhas.Value >0)
             {
-                matrizEsparsa = new ListaLigadaCruzada(Convert.ToInt32(numLinhas.Text), Convert.ToInt32(numColunas.Text));
+                int linhas  = Convert.ToInt32(numLinhas.Text);
+                int colunas = Convert.ToInt32(numColunas.Text);
+
+                matrizEsparsa = new ListaLigadaCruzada(linhas, colunas);
                 matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
 
+                // atualiza os campos necessários
                 numLinhaRemocao.Maximum  = numLinhaPesquisa.Maximum  = numLinhaInsercao.Maximum  = matrizEsparsa.Linhas -1;
                 numColunaRemocao.Maximum = numColunaPesquisa.Maximum = numColunaInsercao.Maximum = matrizEsparsa.Colunas -1;
                 
-
                 matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
             }
             else
@@ -71,16 +82,21 @@ namespace MatrizEsparsa
 
         private void btnInserirElemento_Click(object sender, EventArgs e)
         {
-            double num;
-            if (txtElementoInsercao.Text!=""  && double.TryParse(txtElementoInsercao.Text, out num) && numLinhaInsercao.Value>=0 && numColunaInsercao.Value>=0)
-            {
-                matrizEsparsa.InserirElemento(num, Convert.ToInt32(numLinhaInsercao.Value), 
-                                              Convert.ToInt32(numColunaInsercao.Value));
+            double elemento;
 
+            if (double.TryParse(txtElementoInsercao.Text, out elemento) && elemento != 0 &&
+                numLinhaInsercao.Value>=0  && numColunaInsercao.Value>=0 && !matrizEsparsa.EstaDesalocada)
+            {
+                int linha  = Convert.ToInt32(numLinhaInsercao.Value);
+                int coluna = Convert.ToInt32(numColunaInsercao.Value);
+
+                matrizEsparsa.InserirElemento(elemento, linha, coluna);
                 matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
             }
             else
-                MessageBox.Show("Não é possível inserir um elemento na matriz! Verifique se os valores dos campos de inserção são válidos.", "Atenção!",
+                MessageBox.Show("Não é possível inserir um elemento na matriz! " + 
+                                " Verifique se os valores dos campos de inserção são válidos ou se há uma matriz.",
+                                "Atenção!",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
@@ -102,10 +118,9 @@ namespace MatrizEsparsa
                 matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
             }
             else
-                MessageBox.Show("A matriz já está desalocada." +
+                MessageBox.Show("Não há matriz para desalocar." +
                                 " É necessário gerar uma nova matriz esparsa.", "Atenção!",
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
-
         }
 
         private void btnPesquisar_Click(object sender, EventArgs e)
@@ -126,9 +141,7 @@ namespace MatrizEsparsa
             if (!matrizEsparsa.EstaDesalocada && numColunaRemocao.Value >=0 && numLinhaRemocao.Value >=0)
             {
                 if (!matrizEsparsa.RemoverEm(Convert.ToInt32(numLinhaRemocao.Value), Convert.ToInt32(numColunaInsercao.Value)))
-                {
                     MessageBox.Show("Não há célula nessa coordenada para remover.");
-                }
                 else
                     MessageBox.Show("Removido com sucesso.");
 

@@ -63,7 +63,7 @@
             this.btnRemoverCelula = new System.Windows.Forms.Button();
             this.btnSobre = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnGitHub = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgMatrizEsparsa)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLinhas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColunas)).BeginInit();
@@ -121,7 +121,7 @@
             this.btnCriarMatrizEsparsa.Name = "btnCriarMatrizEsparsa";
             this.btnCriarMatrizEsparsa.Size = new System.Drawing.Size(93, 64);
             this.btnCriarMatrizEsparsa.TabIndex = 8;
-            this.btnCriarMatrizEsparsa.Text = "Gerar Matriz Esparsa";
+            this.btnCriarMatrizEsparsa.Text = "Criar Matriz Esparsa";
             this.btnCriarMatrizEsparsa.UseVisualStyleBackColor = true;
             this.btnCriarMatrizEsparsa.Click += new System.EventHandler(this.btnCriarMatrizEsparsa_Click);
             // 
@@ -430,7 +430,7 @@
             // 
             // numLinhaRemocao
             // 
-            this.numLinhaRemocao.Location = new System.Drawing.Point(53, 6);
+            this.numLinhaRemocao.Location = new System.Drawing.Point(53, 7);
             this.numLinhaRemocao.Maximum = new decimal(new int[] {
             0,
             0,
@@ -444,7 +444,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(4, 6);
+            this.label10.Location = new System.Drawing.Point(4, 8);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(43, 16);
             this.label10.TabIndex = 24;
@@ -473,21 +473,21 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.btnGitHub);
             this.panel2.Controls.Add(this.btnSobre);
             this.panel2.Location = new System.Drawing.Point(1194, 12);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(102, 80);
             this.panel2.TabIndex = 32;
             // 
-            // button2
+            // btnGitHub
             // 
-            this.button2.Location = new System.Drawing.Point(3, 42);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(87, 31);
-            this.button2.TabIndex = 30;
-            this.button2.Text = "GitHub";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnGitHub.Location = new System.Drawing.Point(3, 42);
+            this.btnGitHub.Name = "btnGitHub";
+            this.btnGitHub.Size = new System.Drawing.Size(87, 31);
+            this.btnGitHub.TabIndex = 30;
+            this.btnGitHub.Text = "GitHub";
+            this.btnGitHub.UseVisualStyleBackColor = true;
             // 
             // frmMatrizEsparsa
             // 
@@ -565,7 +565,7 @@
         private System.Windows.Forms.Button btnSobre;
         private System.Windows.Forms.Button btnOperacoes;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnGitHub;
     }
 }
 
