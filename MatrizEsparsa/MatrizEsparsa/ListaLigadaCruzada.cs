@@ -334,7 +334,42 @@ namespace MatrizEsparsa
         /// <returns>Uma matriz esparsa representando a soma.</returns>
         public ListaLigadaCruzada SomarMatrizes(ListaLigadaCruzada outraMatriz)
         {
-            throw new NotImplementedException();
+            if (this.linhas != outraMatriz.linhas || this.colunas != outraMatriz.colunas)
+                throw new ArgumentException("As Matrizes dever ser de mesma dimensão!");
+
+            ListaLigadaCruzada soma = new ListaLigadaCruzada(this.linhas, this.colunas);
+
+            Celula atual = this.cabecaPrincipal.Abaixo.Direita;
+
+            // Copia a matriz this na matriz soma
+            for (int l = 1; l <= this.linhas; l++)
+            { 
+                for (int c = atual.Coluna; c != 0; c = atual.Coluna)
+                if(atual.Valor != null)
+                {
+                    atual = atual.Direita;
+                    soma.InserirElemento(this.ValorDe(l, c), l, c);
+                }
+                atual = atual.Abaixo.Direita;
+            }
+
+            atual = outraMatriz.cabecaPrincipal.Abaixo.Direita;
+
+            for (int l = 1; l < outraMatriz.linhas; l++)
+            {
+                for (int c = atual.Coluna; c != 0; c = atual.Coluna)
+                    if (atual.Valor != null)
+                    {
+                        double elem = soma.ValorDe(l, c) != 0 ? soma.ValorDe(l, c) + outraMatriz.ValorDe(l, c)
+                                                                : outraMatriz.ValorDe(l, c);
+
+                        soma.InserirElemento(elem, l, c);
+                        atual = atual.Direita;
+                    }
+                atual = atual.Abaixo.Direita;
+            }
+
+            return soma;
         }
 
         /// <summary>
