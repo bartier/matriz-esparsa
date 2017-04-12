@@ -148,44 +148,6 @@ namespace MatrizEsparsa
         }
 
         /// <summary>
-        /// Lê um arquivo .txt com os dados de uma matriz esparsa.
-        /// </summary>
-        /// <param name="arquivo"></param>
-        public ListaLigadaCruzada LerArquivo(string arquivo)
-        {
-            StreamReader sr = new StreamReader(arquivo);
-
-            string linhaArquivo = sr.ReadLine();
-
-            while (linhaArquivo.Contains("//")) // usado para pular comentários no arquivo
-                linhaArquivo = sr.ReadLine();
-
-            string[] coordenadas = linhaArquivo.Split(' ');
-
-            int linhas  = Convert.ToInt32(coordenadas[0]);
-            int colunas = Convert.ToInt32(coordenadas[1]);
-
-            ListaLigadaCruzada matrizEsparsa = new ListaLigadaCruzada(linhas, colunas);
-
-            while ((linhaArquivo = sr.ReadLine()) != null)
-            {
-                if (linhaArquivo.Contains("//")) // pular comentários durante a inserção de células
-                    continue;
-
-                string[] celula = linhaArquivo.Split(' ');
-
-                double elemento = Convert.ToDouble(celula[0]);
-                int linha       = Convert.ToInt32 (celula[1]);
-                int coluna      = Convert.ToInt32 (celula[2]);
-
-                matrizEsparsa.InserirElemento(elemento, linha, coluna);
-            }
-            sr.Close();
-
-            return matrizEsparsa;
-        }
-
-        /// <summary>
         /// Retorna o valor de uma célula no lugar da linha/coluna.
         /// </summary>
         /// <param name="linha"></param>
@@ -342,22 +304,24 @@ namespace MatrizEsparsa
             Celula atual = this.cabecaPrincipal.Abaixo.Direita;
 
             // Copia a matriz this na matriz soma
-            for (int l = 1; l <= this.linhas; l++)
-            { 
-                for (int c = atual.Coluna; c != 0; c = atual.Coluna)
-                if(atual.Valor != null)
+            for (int l = 0; l < this.linhas; l++)
+            {
+                for (int c = atual.Coluna; c >= 0; c = atual.Coluna)
                 {
-                    atual = atual.Direita;
-                    soma.InserirElemento(this.ValorDe(l, c), l, c);
+                    if (atual.Valor != null)
+                    {
+                        atual = atual.Direita;
+                        soma.InserirElemento(this.ValorDe(l, c), l, c);
+                    }
                 }
                 atual = atual.Abaixo.Direita;
             }
 
             atual = outraMatriz.cabecaPrincipal.Abaixo.Direita;
 
-            for (int l = 1; l < outraMatriz.linhas; l++)
+            for (int l = 0; l < outraMatriz.linhas; l++)
             {
-                for (int c = atual.Coluna; c != 0; c = atual.Coluna)
+                for (int c = atual.Coluna; c >= 0; c = atual.Coluna)
                     if (atual.Valor != null)
                     {
                         double elem = soma.ValorDe(l, c) != 0 ? soma.ValorDe(l, c) + outraMatriz.ValorDe(l, c)
@@ -379,7 +343,33 @@ namespace MatrizEsparsa
         /// <returns>Uma matriz esparsa representando a multiplicação.</returns>
         public ListaLigadaCruzada MultiplicarMatrizes(ListaLigadaCruzada outraMatriz)
         {
-            throw new NotImplementedException();
+            if (this.Colunas != outraMatriz.Linhas)
+                throw new ArgumentException("Número de colunas de uma matriz deve ser igual o número de linhas da outra");
+
+            ListaLigadaCruzada matrizResultado;
+
+            matrizResultado = new ListaLigadaCruzada(this.Linhas, outraMatriz.Colunas);
+
+
+            double total = 0;
+            for (int i = 0; i < this.Linhas; i++)
+            {
+                for (int j = 0; j < outraMatriz.Colunas; j++)
+                {
+                    total = 0;
+                    int k;
+                    for (k = 0; k < this.Colunas; k++)
+                    {
+                        total += this.ValorDe(i, k) * outraMatriz.ValorDe(k, j);
+                    }
+                    if (total != 0)
+                    {
+                        matrizResultado.InserirElemento(total, i, j);
+                    }
+                }
+            }
+
+            return matrizResultado;
         }
 
         /// <summary>

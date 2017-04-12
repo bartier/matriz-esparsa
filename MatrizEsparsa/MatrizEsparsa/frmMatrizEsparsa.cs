@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,7 +40,34 @@ namespace MatrizEsparsa
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                matrizEsparsa = matrizEsparsa.LerArquivo(openFileDialog1.FileName);
+                StreamReader sr = new StreamReader(openFileDialog1.FileName);
+
+                string linhaArquivo = sr.ReadLine();
+
+                while (linhaArquivo.Contains("//")) // usado para pular comentários no arquivo
+                    linhaArquivo = sr.ReadLine();
+
+                string[] coordenadas = linhaArquivo.Split(' ');
+
+                int linhas = Convert.ToInt32(coordenadas[0]);
+                int colunas = Convert.ToInt32(coordenadas[1]);
+
+                matrizEsparsa = new ListaLigadaCruzada(linhas, colunas);
+
+                while ((linhaArquivo = sr.ReadLine()) != null)
+                {
+                    if (linhaArquivo.Contains("//")) // pular comentários durante a inserção de células
+                        continue;
+
+                    string[] celula = linhaArquivo.Split(' ');
+
+                    double elemento = Convert.ToDouble(celula[0]);
+                    int linha = Convert.ToInt32(celula[1]);
+                    int coluna = Convert.ToInt32(celula[2]);
+
+                    matrizEsparsa.InserirElemento(elemento, linha, coluna);
+                }
+                sr.Close();
 
                 // atualiza os campos necessários
                 numLinhas.Value  = matrizEsparsa.Linhas;
