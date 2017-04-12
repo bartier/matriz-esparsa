@@ -111,7 +111,7 @@ namespace MatrizEsparsa
                 matrizEsparsa3.ExibirDataGridView(dgMatrizEsparsa3);
 
                 // atualiza campos necessários
-                numLinhasMatriz3.Value = matrizEsparsa3.Linhas;
+                numLinhasMatriz3.Value  = matrizEsparsa3.Linhas;
                 numColunasMatriz3.Value = matrizEsparsa3.Colunas;
             }
             else
@@ -144,9 +144,9 @@ namespace MatrizEsparsa
                 case 0:
                     {
                         if (double.TryParse(txtElementoInsercaoMatriz1.Text, out elemento) && elemento != 0 &&
-    numLinhaInsercaoMatriz1.Value >= 0 && numColunaInsercaoMatriz1.Value >= 0 && !matrizEsparsa1.EstaDesalocada)
+    						numLinhaInsercaoMatriz1.Value >= 0 && numColunaInsercaoMatriz1.Value >= 0 && !matrizEsparsa1.EstaDesalocada)
                         {
-                            int linha = Convert.ToInt32(numLinhaInsercaoMatriz1.Value);
+                            int linha  = Convert.ToInt32(numLinhaInsercaoMatriz1.Value);
                             int coluna = Convert.ToInt32(numColunaInsercaoMatriz1.Value);
 
                             matrizEsparsa1.InserirElemento(elemento, linha, coluna);
@@ -162,9 +162,9 @@ namespace MatrizEsparsa
                 case 1:
                     {
                         if (double.TryParse(txtElementoInsercaoMatriz2.Text, out elemento) && elemento != 0 &&
-numLinhaInsercaoMatriz2.Value >= 0 && numColunaInsercaoMatriz2.Value >= 0 && !matrizEsparsa2.EstaDesalocada)
+							numLinhaInsercaoMatriz2.Value >= 0 && numColunaInsercaoMatriz2.Value >= 0 && !matrizEsparsa2.EstaDesalocada)
                         {
-                            int linha = Convert.ToInt32(numLinhaInsercaoMatriz2.Value);
+                            int linha  = Convert.ToInt32(numLinhaInsercaoMatriz2.Value);
                             int coluna = Convert.ToInt32(numColunaInsercaoMatriz2.Value);
 
                             matrizEsparsa2.InserirElemento(elemento, linha, coluna);
@@ -180,9 +180,9 @@ numLinhaInsercaoMatriz2.Value >= 0 && numColunaInsercaoMatriz2.Value >= 0 && !ma
                 case 2:
                     {
                         if (double.TryParse(txtElementoInsercaoMatriz3.Text, out elemento) && elemento != 0 &&
-numLinhaInsercaoMatriz3.Value >= 0 && numColunaInsercaoMatriz3.Value >= 0 && !matrizEsparsa3.EstaDesalocada)
+							numLinhaInsercaoMatriz3.Value >= 0 && numColunaInsercaoMatriz3.Value >= 0 && !matrizEsparsa3.EstaDesalocada)
                         {
-                            int linha = Convert.ToInt32(numLinhaInsercaoMatriz3.Value);
+                            int linha  = Convert.ToInt32(numLinhaInsercaoMatriz3.Value);
                             int coluna = Convert.ToInt32(numColunaInsercaoMatriz3.Value);
 
                             matrizEsparsa3.InserirElemento(elemento, linha, coluna);
@@ -206,14 +206,14 @@ numLinhaInsercaoMatriz3.Value >= 0 && numColunaInsercaoMatriz3.Value >= 0 && !ma
                     {
                         if (numColunasMatriz1.Value > 0 && numLinhasMatriz1.Value > 0)
                         {
-                            int linhas = Convert.ToInt32(numLinhasMatriz1.Value);
+                            int linhas  = Convert.ToInt32(numLinhasMatriz1.Value);
                             int colunas = Convert.ToInt32(numColunasMatriz1.Value);
 
                             matrizEsparsa1 = new ListaLigadaCruzada(linhas, colunas);
                             matrizEsparsa1.ExibirDataGridView(dgMatrizEsparsa1);
 
                             // atualiza os campos necessários
-                            numLinhaInsercaoMatriz1.Maximum = matrizEsparsa2.Linhas - 1;
+                            numLinhaInsercaoMatriz1.Maximum  = matrizEsparsa2.Linhas - 1;
                             numColunaInsercaoMatriz1.Maximum = matrizEsparsa2.Colunas - 1;
                         }
                         else
@@ -227,14 +227,14 @@ numLinhaInsercaoMatriz3.Value >= 0 && numColunaInsercaoMatriz3.Value >= 0 && !ma
                     {
                         if (numColunasMatriz2.Value > 0 && numLinhasMatriz2.Value > 0)
                         {
-                            int linhas = Convert.ToInt32(numLinhasMatriz2.Value);
+                            int linhas  = Convert.ToInt32(numLinhasMatriz2.Value);
                             int colunas = Convert.ToInt32(numColunasMatriz2.Value);
 
                             matrizEsparsa2 = new ListaLigadaCruzada(linhas, colunas);
                             matrizEsparsa2.ExibirDataGridView(dgMatrizEsparsa2);
 
                             // atualiza os campos necessários
-                            numLinhaInsercaoMatriz2.Maximum = matrizEsparsa2.Linhas - 1;
+                            numLinhaInsercaoMatriz2.Maximum  = matrizEsparsa2.Linhas - 1;
                             numColunaInsercaoMatriz2.Maximum = matrizEsparsa2.Colunas - 1;
                         }
                         else
@@ -255,7 +255,7 @@ numLinhaInsercaoMatriz3.Value >= 0 && numColunaInsercaoMatriz3.Value >= 0 && !ma
         private void frmOperacoes_Load(object sender, EventArgs e)
         {
             // linhas e colunas iniciarão com o valor 1
-            int linhas = 1;
+            int linhas  = 1;
             int colunas = 1;
 
             // matrizes do formuláro iniciarão com 1 linha e 1 coluna

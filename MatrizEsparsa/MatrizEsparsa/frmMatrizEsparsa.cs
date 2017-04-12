@@ -49,7 +49,7 @@ namespace MatrizEsparsa
 
                 string[] coordenadas = linhaArquivo.Split(' ');
 
-                int linhas = Convert.ToInt32(coordenadas[0]);
+                int linhas  = Convert.ToInt32(coordenadas[0]);
                 int colunas = Convert.ToInt32(coordenadas[1]);
 
                 matrizEsparsa = new ListaLigadaCruzada(linhas, colunas);
@@ -62,8 +62,8 @@ namespace MatrizEsparsa
                     string[] celula = linhaArquivo.Split(' ');
 
                     double elemento = Convert.ToDouble(celula[0]);
-                    int linha = Convert.ToInt32(celula[1]);
-                    int coluna = Convert.ToInt32(celula[2]);
+                    int linha       = Convert.ToInt32(celula[1]);
+                    int coluna      = Convert.ToInt32(celula[2]);
 
                     matrizEsparsa.InserirElemento(elemento, linha, coluna);
                 }
@@ -205,7 +205,12 @@ namespace MatrizEsparsa
 
         private void btnGitHub_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var result = MessageBox.Show("Clique em ok para ir para https://github.com/bartier/matriz-esparsa");
+
+			if(result == DialogResult.Ok)
+			{
+			    Process.Start("https://github.com/bartier/matriz-esparsa");
+			}
         }
     }
 }
