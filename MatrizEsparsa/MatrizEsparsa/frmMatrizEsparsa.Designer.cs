@@ -1,4 +1,6 @@
-﻿namespace MatrizEsparsa
+﻿// RA: 16163 - Davi Oliveira da Silva
+// RA: 16196 - Vitor Menezes Bartier dos Anjos
+namespace MatrizEsparsa
 {
     partial class frmMatrizEsparsa
     {
@@ -483,7 +485,7 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.btnGitHub);
             this.panel2.Controls.Add(this.btnSobre);
-            this.panel2.Location = new System.Drawing.Point(1258, 12);
+            this.panel2.Location = new System.Drawing.Point(1193, 12);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(92, 80);
             this.panel2.TabIndex = 32;

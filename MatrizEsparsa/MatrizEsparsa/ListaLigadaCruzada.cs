@@ -1,4 +1,6 @@
-﻿using System;
+﻿// RA: 16163 - Davi Oliveira da Silva
+// RA: 16196 - Vitor Menezes Bartier dos Anjos
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -253,6 +255,11 @@ namespace MatrizEsparsa
         /// <param name="gridView"></param>
         public void ExibirDataGridView(DataGridView gridView)
         {
+            // A matriz esparsa pode ser representada em vários componentes de DataGridView, portanto
+            // foi dado a responsabilidade para a classe ListaLigadaCruzada para inserir no componente
+            // os valores das células. A leitura, sendo possível de vários arquivos (.txt, .xml, etc) foi
+            // mantido a responsabilidade para a aplicação.
+
             if (gridView == null)
                 throw new ArgumentException("gridView utilizado é nulo.");
 

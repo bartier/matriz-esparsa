@@ -1,4 +1,6 @@
-﻿namespace MatrizEsparsa
+﻿// RA: 16163 - Davi Oliveira da Silva
+// RA: 16196 - Vitor Menezes Bartier dos Anjos
+namespace MatrizEsparsa
 {
     partial class frmOperacoes
     {
@@ -77,8 +79,6 @@
             this.numColunasMatriz3 = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.label19 = new System.Windows.Forms.Label();
             this.btnSomar = new System.Windows.Forms.Button();
             this.btnMultiplicar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgMatrizEsparsa1)).BeginInit();
@@ -99,7 +99,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLinhaInsercaoMatriz3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLinhasMatriz3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColunasMatriz3)).BeginInit();
-            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgMatrizEsparsa1
@@ -705,25 +704,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // panel4
-            // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel4.Controls.Add(this.label19);
-            this.panel4.Location = new System.Drawing.Point(1355, 9);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(227, 89);
-            this.panel4.TabIndex = 41;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(3, 1);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(189, 20);
-            this.label19.TabIndex = 41;
-            this.label19.Text = "Operações com matrizes:";
-            // 
             // btnSomar
             // 
             this.btnSomar.Location = new System.Drawing.Point(801, 9);
@@ -748,20 +728,21 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(907, 473);
+            this.ClientSize = new System.Drawing.Size(891, 473);
             this.Controls.Add(this.btnMultiplicar);
             this.Controls.Add(this.btnSomar);
-            this.Controls.Add(this.panel4);
             this.Controls.Add(this.dgMatrizEsparsa2);
             this.Controls.Add(this.dgMatrizEsparsa3);
             this.Controls.Add(this.dgMatrizEsparsa1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "frmOperacoes";
+            this.ShowIcon = false;
             this.Text = "Operações com matrizes";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmOperacoes_FormClosing);
             this.Load += new System.EventHandler(this.frmOperacoes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgMatrizEsparsa1)).EndInit();
@@ -785,8 +766,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numLinhaInsercaoMatriz3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numLinhasMatriz3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numColunasMatriz3)).EndInit();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -840,8 +819,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button btnCelulasGuardadasMatrizEsparsa3;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button btnSomar;
         private System.Windows.Forms.Button btnMultiplicar;
     }

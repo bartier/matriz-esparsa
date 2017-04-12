@@ -1,7 +1,10 @@
-﻿using System;
+﻿// RA: 16163 - Davi Oliveira da Silva
+// RA: 16196 - Vitor Menezes Bartier dos Anjos
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -31,6 +34,11 @@ namespace MatrizEsparsa
             matrizEsparsa.ExibirDataGridView(dgMatrizEsparsa);
         }
 
+        /// <summary>
+        /// Lê um arquivo contendo os dados da matriz esparsa (coordenadas e células diferente de 0).
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLerArquivo_Click(object sender, EventArgs e)
         {
             MessageBox.Show("O arquivo deve conter as coordenadas que a matriz terá e depois"    +
@@ -80,6 +88,11 @@ namespace MatrizEsparsa
             }            
         }
 
+        /// <summary>
+        /// Cria a matriz esparsa de acordo com as coordenadas indicadas no programa.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCriarMatrizEsparsa_Click(object sender, EventArgs e)
         {
             if (numColunas.Value >0 && numLinhas.Value >0 && numColunas.Value<656 && numLinhas.Value<656)
@@ -108,6 +121,11 @@ namespace MatrizEsparsa
                              MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>
+        /// Insere o elemento na matriz esparsa indicada pelo programa.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnInserirElemento_Click(object sender, EventArgs e)
         {
             double elemento;
@@ -128,6 +146,11 @@ namespace MatrizEsparsa
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        /// <summary>
+        /// Retorna todas as células que estão guardadas na matriz esparsa (elemento, linha, coluna).
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCelulasGuardadas_Click(object sender, EventArgs e)
         {
             if (!matrizEsparsa.EstaDesalocada)
@@ -138,6 +161,11 @@ namespace MatrizEsparsa
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        /// <summary>
+        /// Desaloca da memória a matriz esparsa.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDesalocarMatriz_Click(object sender, EventArgs e)
         {
             if (!matrizEsparsa.EstaDesalocada)
@@ -205,12 +233,7 @@ namespace MatrizEsparsa
 
         private void btnGitHub_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("Clique em ok para ir para https://github.com/bartier/matriz-esparsa");
-
-			if(result == DialogResult.Ok)
-			{
-			    Process.Start("https://github.com/bartier/matriz-esparsa");
-			}
+	        Process.Start("https://github.com/bartier/matriz-esparsa");
         }
     }
 }
