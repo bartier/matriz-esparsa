@@ -16,7 +16,7 @@ Em conjunto com células cabeça, a matriz esparsa é implementada através de u
 A matriz esparsa portanto terá uma **cabecaPrincipal** que será a primeira célula tanto da lista circular das linhas, quanto da lista circular das colunas.
 
 Visualmente a **matriz esparsa** poderia ser representada assim:
-![2](https://cloud.githubusercontent.com/assets/18057391/24839320/33819c2a-1d2e-11e7-9a61-43061b48186a.png)
+![5](https://cloud.githubusercontent.com/assets/18057391/25141415/e2090208-2439-11e7-9db2-3b50d7b292ba.png)
 
 
 As **células** das matrizes portando guardam:
